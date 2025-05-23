@@ -18,9 +18,7 @@
       --menu-bg: #eaf1fb;
       --menu-active: #18579a;
     }
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
     body {
       font-family: 'Segoe UI', Arial, sans-serif;
       background-color: var(--secondary-color);
@@ -36,6 +34,7 @@
       border-bottom-left-radius: var(--border-radius);
       border-bottom-right-radius: var(--border-radius);
       box-shadow: var(--shadow);
+      position: relative;
     }
     .container {
       max-width: 800px;
@@ -114,9 +113,7 @@
       from { opacity: 0; transform: translateY(20px);}
       to { opacity: 1; transform: translateY(0);}
     }
-    ul {
-      padding-left: 1.2rem;
-    }
+    ul { padding-left: 1.2rem; }
     .ejercicios {
       background: #ecf7ff;
       border-left: 4px solid var(--primary-color);
@@ -139,6 +136,126 @@
     .audio-btn:hover {
       background: #18579a;
     }
+    .login-btn {
+      position: absolute;
+      right: 2rem;
+      top: 2rem;
+      background: #fff;
+      color: var(--primary-color);
+      border: none;
+      padding: 0.5rem 1.2rem;
+      border-radius: 30px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      transition: background 0.2s, color 0.2s;
+      z-index:2;
+    }
+    .login-btn:hover {
+      background: var(--primary-color);
+      color: #fff;
+    }
+    .user-info {
+      position: absolute;
+      right: 2rem;
+      top: 2rem;
+      background: #fff;
+      color: var(--primary-color);
+      border-radius: 30px;
+      padding: 0.5rem 1.2rem;
+      font-weight: 600;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+    .user-info .logout-btn {
+      background: transparent;
+      border: none;
+      color: var(--primary-color);
+      font-weight: 600;
+      cursor: pointer;
+      margin-left: 0.5rem;
+      transition: color 0.2s;
+    }
+    .user-info .logout-btn:hover {
+      color: #e53935;
+    }
+    /* Modal styles */
+    .modal-bg {
+      display: none;
+      position: fixed;
+      z-index: 10;
+      left: 0; top: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.25);
+    }
+    .modal {
+      background: #fff;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      max-width: 350px;
+      width: 95%;
+      margin: 5% auto 0 auto;
+      padding: 2rem 1.5rem 1.5rem 1.5rem;
+      position: relative;
+      z-index: 100;
+      animation: fadeIn 0.7s;
+    }
+    .modal h2 {
+      margin-top: 0;
+      color: var(--primary-color);
+    }
+    .modal label {
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+    .modal input[type="text"],
+    .modal input[type="password"] {
+      width: 100%;
+      padding: 0.5rem;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    .modal .modal-actions {
+      text-align: right;
+    }
+    .modal .modal-actions button {
+      margin-left: 0.5rem;
+    }
+    .modal .modal-close {
+      position: absolute;
+      top: 0.8rem;
+      right: 0.8rem;
+      background: transparent;
+      border: none;
+      font-size: 1.2rem;
+      color: #888;
+      cursor: pointer;
+    }
+    .modal .modal-link {
+      color: var(--primary-color);
+      text-decoration: underline;
+      cursor: pointer;
+      font-size: 0.95em;
+      margin-left: 0.1em;
+    }
+    .modal .modal-link:hover {
+      color: #18579a;
+    }
+    .register-success {
+      color: #2e7d32;
+      margin-top: 0.5rem;
+      font-size: 0.95em;
+      text-align: center;
+    }
+    .register-error {
+      color: #e53935;
+      margin-top: 0.5rem;
+      font-size: 0.95em;
+      text-align: center;
+    }
     @media (max-width: 950px) {
       .sidebar-menu {
         float: none;
@@ -149,6 +266,9 @@
       .main-content {
         margin-left: 0;
       }
+      .login-btn, .user-info {
+        right: 1rem;
+      }
     }
     @media (max-width: 600px) {
       .container, .section {
@@ -156,6 +276,12 @@
       }
       h1 {
         font-size: 1.3rem;
+      }
+      .login-btn, .user-info {
+        top: 1rem;
+        right: 0.5rem;
+        padding: 0.4rem 0.7rem;
+        font-size: 0.9rem;
       }
     }
     footer {
@@ -181,7 +307,59 @@
       <a href="#ejercicios">Ejercicios</a>
       <a href="#recursos">Recursos</a>
     </nav>
+    <button class="login-btn" id="openLoginBtn">Iniciar sesión</button>
+    <div class="user-info" id="userInfo" style="display:none;">
+      <span id="usernameDisplay"></span>
+      <button class="logout-btn" id="logoutBtn" title="Cerrar sesión">Salir</button>
+    </div>
   </header>
+
+  <!-- Modal de login -->
+  <div class="modal-bg" id="loginModalBg">
+    <div class="modal">
+      <button class="modal-close" id="closeLoginBtn" title="Cerrar">&times;</button>
+      <h2>Iniciar sesión</h2>
+      <form id="loginForm" autocomplete="off">
+        <label for="username">Usuario:</label>
+        <input type="text" id="username" required placeholder="Tu usuario o email">
+        <label for="password">Contraseña:</label>
+        <input type="password" id="password" required placeholder="Contraseña">
+        <div class="modal-actions">
+          <button type="button" id="cancelLoginBtn">Cancelar</button>
+          <button type="submit">Entrar</button>
+        </div>
+      </form>
+      <div id="loginError" style="color:#e53935; margin-top:0.5rem;display:none;">Usuario o contraseña incorrectos</div>
+      <div style="margin-top:0.5rem; text-align:center;">
+        ¿No tienes cuenta? <span class="modal-link" id="goToRegister">Regístrate aquí</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de registro -->
+  <div class="modal-bg" id="registerModalBg">
+    <div class="modal">
+      <button class="modal-close" id="closeRegisterBtn" title="Cerrar">&times;</button>
+      <h2>Registrarse</h2>
+      <form id="registerForm" autocomplete="off">
+        <label for="registerNombre">Nombre completo:</label>
+        <input type="text" id="registerNombre" required placeholder="Tu nombre">
+        <label for="registerUsername">Usuario:</label>
+        <input type="text" id="registerUsername" required placeholder="Elige un usuario">
+        <label for="registerPassword">Contraseña:</label>
+        <input type="password" id="registerPassword" required placeholder="Contraseña">
+        <div class="modal-actions">
+          <button type="button" id="cancelRegisterBtn">Cancelar</button>
+          <button type="submit">Registrar</button>
+        </div>
+      </form>
+      <div class="register-success" id="registerSuccess" style="display:none;">¡Registro exitoso! Ya puedes iniciar sesión.</div>
+      <div class="register-error" id="registerError" style="display:none;">Ese usuario ya existe. Elige otro.</div>
+      <div style="margin-top:0.5rem; text-align:center;">
+        ¿Ya tienes cuenta? <span class="modal-link" id="goToLogin">Inicia sesión</span>
+      </div>
+    </div>
+  </div>
 
   <div class="container clearfix">
     <!-- Menú lateral de acceso rápido -->
@@ -220,12 +398,15 @@
       <section id="unidad4" class="section">
         <h2>Unidad 4: Objetos y Verbos</h2>
         <p>Bienvenido a la Unidad 4. Aquí aprenderás vocabulario y gramática básica para expresarte en español.</p>
+        <div id="avanceUsuario" style="margin-top:1.2rem; color: #2d89ef; background:#ecf7ff; padding:0.9rem 1.1rem; border-radius:6px; display:none;">
+          <strong>Tu progreso:</strong>
+          <ul id="progresoLista"></ul>
+        </div>
       </section>
       <section id="unidad5" class="section" style="display:none;">
         <h2>Unidad 5: La Escuela</h2>
         <p>Vocabulario y frases útiles sobre la escuela.</p>
       </section>
-      <!-- Fin simulación otras unidades -->
 
       <section id="vocabulario" class="section">
         <h2>Vocabulario: Objetos Comunes y Actividades Diarias</h2>
@@ -272,10 +453,10 @@
       <section id="ejercicios" class="section ejercicios">
         <h2>Ejercicios Prácticos</h2>
         <ol>
-          <li>Escucha la pronunciación de los objetos y repite en voz alta.</li>
-          <li>Escribe 3 frases usando los verbos estudiados.</li>
-          <li>Lee en voz alta el vocabulario del día.</li>
-          <li>Graba un audio presentándote y diciendo una actividad que haces cada día.</li>
+          <li><input type="checkbox" class="progreso-chk" data-bloque="Vocabulario"> Escucha la pronunciación de los objetos y repite en voz alta.</li>
+          <li><input type="checkbox" class="progreso-chk" data-bloque="Gramática"> Escribe 3 frases usando los verbos estudiados.</li>
+          <li><input type="checkbox" class="progreso-chk" data-bloque="Vocabulario"> Lee en voz alta el vocabulario del día.</li>
+          <li><input type="checkbox" class="progreso-chk" data-bloque="Presentación"> Graba un audio presentándote y diciendo una actividad que haces cada día.</li>
         </ol>
         <p><strong>Tip:</strong> ¡Practica a diario para mejorar más rápido!</p>
       </section>
@@ -332,6 +513,189 @@
         window.scrollTo({ top: 0, behavior: 'smooth' });
       });
     });
+
+    // --------- LOGIN Y REGISTRO (DEMO) ---------
+    // Usuarios almacenados localmente
+    function getStoredUsers() {
+      let u = localStorage.getItem('appUsers');
+      try { return u ? JSON.parse(u) : []; } catch { return []; }
+    }
+    function setStoredUsers(users) {
+      localStorage.setItem('appUsers', JSON.stringify(users));
+    }
+
+    // DEMO: usuarios precargados
+    if(!localStorage.getItem('appUsers')) {
+      setStoredUsers([
+        { username: 'alumno1', password: '1234', nombre: 'María González' },
+        { username: 'alumno2', password: 'abcd', nombre: 'Juan Pérez' }
+      ]);
+    }
+
+    const openLoginBtn = document.getElementById('openLoginBtn');
+    const loginModalBg = document.getElementById('loginModalBg');
+    const closeLoginBtn = document.getElementById('closeLoginBtn');
+    const cancelLoginBtn = document.getElementById('cancelLoginBtn');
+    const loginForm = document.getElementById('loginForm');
+    const loginError = document.getElementById('loginError');
+    const userInfo = document.getElementById('userInfo');
+    const usernameDisplay = document.getElementById('usernameDisplay');
+    const logoutBtn = document.getElementById('logoutBtn');
+    const progresoChecks = document.querySelectorAll('.progreso-chk');
+    // Registro
+    const registerModalBg = document.getElementById('registerModalBg');
+    const closeRegisterBtn = document.getElementById('closeRegisterBtn');
+    const cancelRegisterBtn = document.getElementById('cancelRegisterBtn');
+    const registerForm = document.getElementById('registerForm');
+    const registerSuccess = document.getElementById('registerSuccess');
+    const registerError = document.getElementById('registerError');
+    const goToRegister = document.getElementById('goToRegister');
+    const goToLogin = document.getElementById('goToLogin');
+
+    // Mostrar modal login
+    openLoginBtn.onclick = () => { loginModalBg.style.display = "block"; };
+    closeLoginBtn.onclick = cancelLoginBtn.onclick = () => {
+      loginModalBg.style.display = "none";
+      loginForm.reset();
+      loginError.style.display = "none";
+    };
+
+    // Mostrar modal registro
+    goToRegister.onclick = function() {
+      loginModalBg.style.display = "none";
+      registerModalBg.style.display = "block";
+      registerForm.reset();
+      registerSuccess.style.display = "none";
+      registerError.style.display = "none";
+    };
+    goToLogin.onclick = function() {
+      registerModalBg.style.display = "none";
+      loginModalBg.style.display = "block";
+      loginError.style.display = "none";
+    };
+    closeRegisterBtn.onclick = cancelRegisterBtn.onclick = function() {
+      registerModalBg.style.display = "none";
+      registerForm.reset();
+      registerSuccess.style.display = "none";
+      registerError.style.display = "none";
+    };
+
+    // Progreso de usuario (simulado por localStorage)
+    function guardarProgreso(username, progreso) {
+      localStorage.setItem("progreso_" + username, JSON.stringify(progreso));
+    }
+    function cargarProgreso(username) {
+      let prog = localStorage.getItem("progreso_" + username);
+      return prog ? JSON.parse(prog) : [];
+    }
+    function mostrarProgresoUsuario(username) {
+      let progreso = cargarProgreso(username);
+      const avanceDiv = document.getElementById('avanceUsuario');
+      const lista = document.getElementById('progresoLista');
+      lista.innerHTML = "";
+      if (progreso.length === 0) {
+        avanceDiv.style.display = "none";
+        return;
+      }
+      avanceDiv.style.display = "block";
+      progreso.forEach(bloque => {
+        let li = document.createElement("li");
+        li.textContent = bloque;
+        lista.appendChild(li);
+      });
+    }
+
+    // Login
+    loginForm.onsubmit = function(e) {
+      e.preventDefault();
+      let username = document.getElementById('username').value.trim();
+      let password = document.getElementById('password').value;
+      let users = getStoredUsers();
+      let user = users.find(u => u.username === username && u.password === password);
+      if(user) {
+        localStorage.setItem("loggedUser", username);
+        loginModalBg.style.display = "none";
+        openLoginBtn.style.display = "none";
+        userInfo.style.display = "flex";
+        usernameDisplay.textContent = user.nombre;
+        mostrarProgresoUsuario(username);
+        restaurarChecks(username);
+      } else {
+        loginError.style.display = "block";
+      }
+    };
+
+    // Registro
+    registerForm.onsubmit = function(e) {
+      e.preventDefault();
+      let nombre = document.getElementById('registerNombre').value.trim();
+      let username = document.getElementById('registerUsername').value.trim();
+      let password = document.getElementById('registerPassword').value;
+      let users = getStoredUsers();
+      if(users.find(u => u.username === username)) {
+        registerError.style.display = "block";
+        registerSuccess.style.display = "none";
+        return;
+      }
+      users.push({ username, password, nombre });
+      setStoredUsers(users);
+      registerError.style.display = "none";
+      registerSuccess.style.display = "block";
+      setTimeout(() => {
+        registerModalBg.style.display = "none";
+        loginModalBg.style.display = "block";
+      }, 1400);
+    };
+
+    // Logout
+    logoutBtn.onclick = function() {
+      localStorage.removeItem("loggedUser");
+      openLoginBtn.style.display = "inline-block";
+      userInfo.style.display = "none";
+      document.getElementById('avanceUsuario').style.display = "none";
+      progresoChecks.forEach(c => c.checked = false);
+    };
+
+    // Mantener sesión al recargar
+    window.onload = function() {
+      let username = localStorage.getItem("loggedUser");
+      if(username) {
+        let users = getStoredUsers();
+        let user = users.find(u => u.username === username);
+        if(user) {
+          openLoginBtn.style.display = "none";
+          userInfo.style.display = "flex";
+          usernameDisplay.textContent = user.nombre;
+          mostrarProgresoUsuario(username);
+          restaurarChecks(username);
+        }
+      }
+    };
+
+    // Progreso por checkboxes
+    progresoChecks.forEach(chk => {
+      chk.addEventListener('change', function() {
+        let username = localStorage.getItem("loggedUser");
+        if(!username) return;
+        let progreso = cargarProgreso(username);
+        let desc = this.parentNode.textContent.trim();
+        if(this.checked && !progreso.includes(desc)) {
+          progreso.push(desc);
+        } else if(!this.checked && progreso.includes(desc)) {
+          progreso = progreso.filter(p => p !== desc);
+        }
+        guardarProgreso(username, progreso);
+        mostrarProgresoUsuario(username);
+      });
+    });
+
+    function restaurarChecks(username) {
+      let progreso = cargarProgreso(username);
+      progresoChecks.forEach(chk => {
+        let desc = chk.parentNode.textContent.trim();
+        chk.checked = progreso.includes(desc);
+      });
+    }
   </script>
 </body>
 </html>
