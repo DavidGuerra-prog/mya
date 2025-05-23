@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Plataforma Estudiantes - M&A Spanish Express</title>
+  <title>Plataforma Estudiantes - M&amp;A Spanish Express</title>
   <link rel="icon" href="favicon.ico">
   <meta name="description" content="Plataforma de estudiantes de M&A Spanish Express. Cada estudiante puede avanzar, ver su perfil, personalizar su usuario y más.">
   <meta name="author" content="M&A Spanish Express">
@@ -186,6 +186,8 @@
       min-width: 0;
       border: 1px solid #ffe4ec;
       transition: box-shadow 0.2s, border 0.2s;
+      position: relative;
+      z-index: 1;
     }
     .section:hover {
       box-shadow: 0 12px 40px 0 #f8bbd045;
@@ -196,13 +198,6 @@
       margin-top: 0;
       font-size: 1.35em;
       letter-spacing: 0.2px;
-    }
-    .section:not(:last-child) {
-      margin-bottom: 0;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px);}
-      to { opacity: 1; transform: translateY(0);}
     }
     ul { padding-left: 1.2rem; }
     .ejercicios {
@@ -468,9 +463,79 @@
     </div>
   </header>
 
-  <!-- Modal de login, registro y perfil igual que antes ... -->
-
-  <!-- ...copiar aquí los modales y scripts de la versión anterior... -->
+  <!-- Modales -->
+  <div class="modal-bg" id="loginModalBg">
+    <div class="modal">
+      <button class="modal-close" id="closeLoginBtn" title="Cerrar">&times;</button>
+      <h2>Iniciar sesión</h2>
+      <form id="loginForm" autocomplete="off">
+        <label for="username">Usuario:</label>
+        <input type="text" id="username" required placeholder="Tu usuario o email">
+        <label for="password">Contraseña:</label>
+        <input type="password" id="password" required placeholder="Contraseña">
+        <div class="modal-actions">
+          <button type="button" id="cancelLoginBtn">Cancelar</button>
+          <button type="submit">Entrar</button>
+        </div>
+      </form>
+      <div id="loginError" style="color:#e53935; margin-top:0.5rem;display:none;">Usuario o contraseña incorrectos</div>
+      <div style="margin-top:0.5rem; text-align:center;">
+        ¿No tienes cuenta? <span class="modal-link" id="goToRegister">Regístrate aquí</span>
+      </div>
+    </div>
+  </div>
+  <div class="modal-bg" id="registerModalBg">
+    <div class="modal">
+      <button class="modal-close" id="closeRegisterBtn" title="Cerrar">&times;</button>
+      <h2>Registrarse</h2>
+      <form id="registerForm" autocomplete="off">
+        <label for="registerNombre">Nombre completo:</label>
+        <input type="text" id="registerNombre" required placeholder="Tu nombre">
+        <label for="registerUsername">Usuario:</label>
+        <input type="text" id="registerUsername" required placeholder="Elige un usuario">
+        <label for="registerPassword">Contraseña:</label>
+        <input type="password" id="registerPassword" required placeholder="Contraseña">
+        <label for="registerAvatar">Foto de perfil (opcional):</label>
+        <input type="file" id="registerAvatar" accept="image/*">
+        <div class="modal-actions">
+          <button type="button" id="cancelRegisterBtn">Cancelar</button>
+          <button type="submit">Registrar</button>
+        </div>
+      </form>
+      <div class="register-success" id="registerSuccess" style="display:none;">¡Registro exitoso! Ya puedes iniciar sesión.</div>
+      <div class="register-error" id="registerError" style="display:none;">Ese usuario ya existe. Elige otro.</div>
+      <div style="margin-top:0.5rem; text-align:center;">
+        ¿Ya tienes cuenta? <span class="modal-link" id="goToLogin">Inicia sesión</span>
+      </div>
+    </div>
+  </div>
+  <div class="profile-modal-bg" id="profileModalBg">
+    <div class="profile-modal">
+      <button class="modal-close" id="closeProfileBtn" title="Cerrar">&times;</button>
+      <h2>Mi Perfil</h2>
+      <form id="profileForm">
+        <div class="profile-avatar">
+          <img src="" id="profileAvatarImg" alt="Avatar de usuario">
+          <div>
+            <label for="profileAvatarInput">Cambiar foto de perfil:</label>
+            <input type="file" id="profileAvatarInput" accept="image/*">
+          </div>
+        </div>
+        <label>Nombre:</label>
+        <input type="text" id="profileNombreInput" required>
+        <label>Usuario:</label>
+        <input type="text" id="profileUsernameInput" required disabled>
+        <label>Nueva contraseña:</label>
+        <input type="password" id="profilePasswordInput" placeholder="Opcional">
+        <div class="modal-actions">
+          <button type="button" id="closeProfileBtn2">Cerrar</button>
+          <button type="submit">Guardar cambios</button>
+        </div>
+      </form>
+      <label>Progreso en ejercicios:</label>
+      <ul id="profileProgreso" class="profile-list"></ul>
+    </div>
+  </div>
 
   <div class="container clearfix">
     <!-- Menú lateral -->
@@ -581,6 +646,312 @@
   <footer>
     &copy; 2025 M&amp;A Spanish Express · info@maspanishexpress.com
   </footer>
-  <!-- ...Pega los scripts y modales igual que la versión anterior... -->
+  <audio id="audio-player"></audio>
+  <script>
+    // Audios demo
+    const audios = {
+      mesa: "https://cdn.pixabay.com/audio/2022/03/15/audio_115b9b7a3c.mp3",
+      libro: "https://cdn.pixabay.com/audio/2022/03/15/audio_115b9b7a3c.mp3",
+      boligrafo: "https://cdn.pixabay.com/audio/2022/03/15/audio_115b9b7a3c.mp3",
+      desayunar: "https://cdn.pixabay.com/audio/2022/03/15/audio_115b9b7a3c.mp3",
+      leer: "https://cdn.pixabay.com/audio/2022/03/15/audio_115b9b7a3c.mp3",
+      estudiar: "https://cdn.pixabay.com/audio/2022/03/15/audio_115b9b7a3c.mp3"
+    };
+    function playAudio(word) {
+      const audioPlayer = document.getElementById('audio-player');
+      if(audios[word]) {
+        audioPlayer.src = audios[word];
+        audioPlayer.play();
+      } else {
+        alert("Audio no disponible.");
+      }
+    }
+    // Navegación unidades
+    document.querySelectorAll('.sidebar-menu a[href^="#unidad"]').forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        let unidad = this.getAttribute('href');
+        document.querySelectorAll('.section[id^="unidad"]').forEach(sec => sec.style.display = 'none');
+        let activeSection = document.querySelector(unidad);
+        if(activeSection) activeSection.style.display = 'block';
+        document.querySelectorAll('.sidebar-menu a[href^="#unidad"]').forEach(a => a.classList.remove('active'));
+        this.classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+    // --------- GESTIÓN DE USUARIOS Y SESIÓN ----------
+    function getStoredUsers() {
+      let u = localStorage.getItem('appUsers');
+      try { return u ? JSON.parse(u) : []; } catch { return []; }
+    }
+    function setStoredUsers(users) {
+      localStorage.setItem('appUsers', JSON.stringify(users));
+    }
+    if(!localStorage.getItem('appUsers')) {
+      setStoredUsers([
+        { username: 'alumno1', password: '1234', nombre: 'María González', avatar: "" },
+        { username: 'alumno2', password: 'abcd', nombre: 'Juan Pérez', avatar: "" }
+      ]);
+    }
+    function userAvatarOrDefault(user) {
+      return user && user.avatar ? user.avatar : "https://ui-avatars.com/api/?name=" + encodeURIComponent(user.nombre || user.username || "Estudiante") + "&background=fecaca&color=fff&rounded=true&size=128";
+    }
+    const openLoginBtn = document.getElementById('openLoginBtn');
+    const loginModalBg = document.getElementById('loginModalBg');
+    const closeLoginBtn = document.getElementById('closeLoginBtn');
+    const cancelLoginBtn = document.getElementById('cancelLoginBtn');
+    const loginForm = document.getElementById('loginForm');
+    const loginError = document.getElementById('loginError');
+    const userInfo = document.getElementById('userInfo');
+    const usernameDisplay = document.getElementById('usernameDisplay');
+    const logoutBtn = document.getElementById('logoutBtn');
+    const profileBtn = document.getElementById('profileBtn');
+    const userAvatarThumb = document.getElementById('userAvatarThumb');
+    const progresoChecks = document.querySelectorAll('.progreso-chk');
+    // Registro
+    const registerModalBg = document.getElementById('registerModalBg');
+    const closeRegisterBtn = document.getElementById('closeRegisterBtn');
+    const cancelRegisterBtn = document.getElementById('cancelRegisterBtn');
+    const registerForm = document.getElementById('registerForm');
+    const registerSuccess = document.getElementById('registerSuccess');
+    const registerError = document.getElementById('registerError');
+    const goToRegister = document.getElementById('goToRegister');
+    const goToLogin = document.getElementById('goToLogin');
+    const registerAvatar = document.getElementById('registerAvatar');
+    // Perfil
+    const profileModalBg = document.getElementById('profileModalBg');
+    const closeProfileBtn = document.getElementById('closeProfileBtn');
+    const closeProfileBtn2 = document.getElementById('closeProfileBtn2');
+    const profileForm = document.getElementById('profileForm');
+    const profileAvatarImg = document.getElementById('profileAvatarImg');
+    const profileAvatarInput = document.getElementById('profileAvatarInput');
+    const profileNombreInput = document.getElementById('profileNombreInput');
+    const profileUsernameInput = document.getElementById('profileUsernameInput');
+    const profilePasswordInput = document.getElementById('profilePasswordInput');
+    const profileProgreso = document.getElementById('profileProgreso');
+    // Mostrar modal login
+    openLoginBtn.onclick = () => { loginModalBg.style.display = "block"; };
+    closeLoginBtn.onclick = cancelLoginBtn.onclick = () => {
+      loginModalBg.style.display = "none";
+      loginForm.reset();
+      loginError.style.display = "none";
+    };
+    // Mostrar modal registro
+    goToRegister.onclick = function() {
+      loginModalBg.style.display = "none";
+      registerModalBg.style.display = "block";
+      registerForm.reset();
+      registerSuccess.style.display = "none";
+      registerError.style.display = "none";
+    };
+    goToLogin.onclick = function() {
+      registerModalBg.style.display = "none";
+      loginModalBg.style.display = "block";
+      loginError.style.display = "none";
+    };
+    closeRegisterBtn.onclick = cancelRegisterBtn.onclick = function() {
+      registerModalBg.style.display = "none";
+      registerForm.reset();
+      registerSuccess.style.display = "none";
+      registerError.style.display = "none";
+    };
+    // Progreso de usuario (simulado por localStorage)
+    function guardarProgreso(username, progreso) {
+      localStorage.setItem("progreso_" + username, JSON.stringify(progreso));
+    }
+    function cargarProgreso(username) {
+      let prog = localStorage.getItem("progreso_" + username);
+      return prog ? JSON.parse(prog) : [];
+    }
+    function mostrarProgresoUsuario(username) {
+      let progreso = cargarProgreso(username);
+      const avanceDiv = document.getElementById('avanceUsuario');
+      const lista = document.getElementById('progresoLista');
+      lista.innerHTML = "";
+      if (progreso.length === 0) {
+        avanceDiv.style.display = "none";
+        return;
+      }
+      avanceDiv.style.display = "block";
+      progreso.forEach(bloque => {
+        let li = document.createElement("li");
+        li.textContent = bloque;
+        lista.appendChild(li);
+      });
+    }
+    // Login
+    loginForm.onsubmit = function(e) {
+      e.preventDefault();
+      let username = document.getElementById('username').value.trim();
+      let password = document.getElementById('password').value;
+      let users = getStoredUsers();
+      let user = users.find(u => u.username === username && u.password === password);
+      if(user) {
+        localStorage.setItem("loggedUser", username);
+        loginModalBg.style.display = "none";
+        openLoginBtn.style.display = "none";
+        userInfo.style.display = "flex";
+        usernameDisplay.textContent = user.nombre;
+        userAvatarThumb.src = userAvatarOrDefault(user);
+        userAvatarThumb.style.display = "inline-block";
+        mostrarProgresoUsuario(username);
+        restaurarChecks(username);
+      } else {
+        loginError.style.display = "block";
+      }
+    };
+    // Registro
+    registerForm.onsubmit = function(e) {
+      e.preventDefault();
+      let nombre = document.getElementById('registerNombre').value.trim();
+      let username = document.getElementById('registerUsername').value.trim();
+      let password = document.getElementById('registerPassword').value;
+      let users = getStoredUsers();
+      if(users.find(u => u.username === username)) {
+        registerError.style.display = "block";
+        registerSuccess.style.display = "none";
+        return;
+      }
+      let avatarData = "";
+      if(registerAvatar && registerAvatar.files && registerAvatar.files[0]) {
+        let reader = new FileReader();
+        reader.onload = function(evt) {
+          avatarData = evt.target.result;
+          users.push({ username, password, nombre, avatar: avatarData });
+          setStoredUsers(users);
+          registerError.style.display = "none";
+          registerSuccess.style.display = "block";
+          setTimeout(() => {
+            registerModalBg.style.display = "none";
+            loginModalBg.style.display = "block";
+          }, 1400);
+        };
+        reader.readAsDataURL(registerAvatar.files[0]);
+        return;
+      }
+      users.push({ username, password, nombre, avatar: "" });
+      setStoredUsers(users);
+      registerError.style.display = "none";
+      registerSuccess.style.display = "block";
+      setTimeout(() => {
+        registerModalBg.style.display = "none";
+        loginModalBg.style.display = "block";
+      }, 1400);
+    };
+    // Logout
+    logoutBtn.onclick = function() {
+      localStorage.removeItem("loggedUser");
+      openLoginBtn.style.display = "inline-block";
+      userInfo.style.display = "none";
+      document.getElementById('avanceUsuario').style.display = "none";
+      progresoChecks.forEach(c => c.checked = false);
+    };
+    // Mantener sesión al recargar
+    window.onload = function() {
+      let username = localStorage.getItem("loggedUser");
+      if(username) {
+        let users = getStoredUsers();
+        let user = users.find(u => u.username === username);
+        if(user) {
+          openLoginBtn.style.display = "none";
+          userInfo.style.display = "flex";
+          usernameDisplay.textContent = user.nombre;
+          userAvatarThumb.src = userAvatarOrDefault(user);
+          userAvatarThumb.style.display = "inline-block";
+          mostrarProgresoUsuario(username);
+          restaurarChecks(username);
+        }
+      }
+    };
+    // Progreso por checkboxes
+    progresoChecks.forEach(chk => {
+      chk.addEventListener('change', function() {
+        let username = localStorage.getItem("loggedUser");
+        if(!username) return;
+        let progreso = cargarProgreso(username);
+        let desc = this.parentNode.textContent.trim();
+        if(this.checked && !progreso.includes(desc)) {
+          progreso.push(desc);
+        } else if(!this.checked && progreso.includes(desc)) {
+          progreso = progreso.filter(p => p !== desc);
+        }
+        guardarProgreso(username, progreso);
+        mostrarProgresoUsuario(username);
+      });
+    });
+    function restaurarChecks(username) {
+      let progreso = cargarProgreso(username);
+      progresoChecks.forEach(chk => {
+        let desc = chk.parentNode.textContent.trim();
+        chk.checked = progreso.includes(desc);
+      });
+    }
+    // --------- PERFIL DE USUARIO ---------
+    profileBtn.onclick = function() {
+      let username = localStorage.getItem("loggedUser");
+      if(!username) return;
+      let users = getStoredUsers();
+      let user = users.find(u => u.username === username);
+      if(!user) return;
+      profileAvatarImg.src = userAvatarOrDefault(user);
+      profileNombreInput.value = user.nombre;
+      profileUsernameInput.value = user.username;
+      profilePasswordInput.value = "";
+      let progreso = cargarProgreso(username);
+      profileProgreso.innerHTML = "";
+      if(progreso.length === 0) {
+        let li = document.createElement('li');
+        li.textContent = "Sin progreso aún.";
+        profileProgreso.appendChild(li);
+      } else {
+        progreso.forEach(bloque => {
+          let li = document.createElement('li');
+          li.textContent = bloque;
+          profileProgreso.appendChild(li);
+        });
+      }
+      profileModalBg.style.display = "block";
+    };
+    closeProfileBtn.onclick = closeProfileBtn2.onclick = function() {
+      profileModalBg.style.display = "none";
+    };
+    // Editar datos de perfil (nombre, contraseña, avatar)
+    profileForm.onsubmit = function(e) {
+      e.preventDefault();
+      let users = getStoredUsers();
+      let username = profileUsernameInput.value;
+      let user = users.find(u => u.username === username);
+      if(!user) return;
+      user.nombre = profileNombreInput.value.trim();
+      let newPassword = profilePasswordInput.value;
+      if(newPassword) user.password = newPassword;
+      // Avatar (si se eligió nuevo)
+      if(profileAvatarInput.files && profileAvatarInput.files[0]) {
+        let reader = new FileReader();
+        reader.onload = function(evt) {
+          user.avatar = evt.target.result;
+          setStoredUsers(users);
+          if(localStorage.getItem("loggedUser") === username) {
+            userAvatarThumb.src = userAvatarOrDefault(user);
+            userAvatarThumb.style.display = "inline-block";
+            usernameDisplay.textContent = user.nombre;
+          }
+          profileAvatarImg.src = userAvatarOrDefault(user);
+          alert("¡Cambios guardados!");
+          profileModalBg.style.display = "none";
+        };
+        reader.readAsDataURL(profileAvatarInput.files[0]);
+        return;
+      }
+      setStoredUsers(users);
+      if(localStorage.getItem("loggedUser") === username) {
+        userAvatarThumb.src = userAvatarOrDefault(user);
+        userAvatarThumb.style.display = "inline-block";
+        usernameDisplay.textContent = user.nombre;
+      }
+      alert("¡Cambios guardados!");
+      profileModalBg.style.display = "none";
+    };
+  </script>
 </body>
 </html>
