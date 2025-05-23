@@ -1,60 +1,337 @@
 <!DOCTYPE html>
-<html lang="en-US">
+<html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Beginner Unit 4 - Spanish Lessons Online</title>
+  <title>Unidad 4 para Principiantes - Lecciones de Español Online</title>
+  <meta name="description" content="Unidad 4 para principiantes - Aprende vocabulario, gramática y ejercicios prácticos de español.">
+  <meta name="author" content="Ixchel School">
+  <link rel="icon" href="favicon.ico">
   <style>
+    :root {
+      --primary-color: #2d89ef;
+      --secondary-color: #f0f2f5;
+      --text-color: #333;
+      --card-bg: #fff;
+      --border-radius: 10px;
+      --shadow: 0 2px 16px rgba(0,0,0,0.08);
+      --menu-bg: #eaf1fb;
+      --menu-active: #18579a;
+    }
+    * {
+      box-sizing: border-box;
+    }
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f0f2f5;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background-color: var(--secondary-color);
+      color: var(--text-color);
       margin: 0;
-      padding: 2rem;
+      padding: 0;
     }
     header {
+      background: var(--primary-color);
+      color: #fff;
+      padding: 2rem 1rem 1rem 1rem;
       text-align: center;
-      margin-bottom: 2rem;
+      border-bottom-left-radius: var(--border-radius);
+      border-bottom-right-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+    }
+    .container {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 0 1rem;
     }
     h1 {
-      color: #333;
+      margin-top: 0;
+      font-size: 2.3rem;
+    }
+    nav {
+      margin-top: 1rem;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+    nav a {
+      color: #fff;
+      background: var(--primary-color);
+      text-decoration: none;
+      margin: 0 0.5rem;
+      padding: 0.4rem 1rem;
+      border-radius: 6px;
+      transition: background 0.2s;
+      font-weight: 500;
+    }
+    nav a:hover {
+      background: #18579a;
+    }
+    .sidebar-menu {
+      background: var(--menu-bg);
+      border-radius: var(--border-radius);
+      padding: 1.2rem 1rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow);
+      max-width: 250px;
+      float: left;
+      min-height: 400px;
+    }
+    .sidebar-menu h3 {
+      margin-top: 0;
+      font-size: 1.2rem;
+      color: var(--primary-color);
+    }
+    .sidebar-menu ul {
+      list-style: disc inside;
+      margin: 0;
+      padding: 0;
+    }
+    .sidebar-menu li {
+      margin: 0.4rem 0;
+    }
+    .sidebar-menu a {
+      color: var(--text-color);
+      text-decoration: none;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      transition: background 0.15s;
+      display: inline-block;
+    }
+    .sidebar-menu a:hover, .sidebar-menu a.active {
+      background: var(--menu-active);
+      color: #fff;
+    }
+    .main-content {
+      margin-left: 270px;
     }
     .section {
-      background: white;
-      border-radius: 8px;
-      padding: 1.5rem;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      max-width: 700px;
-      margin: 0 auto;
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      padding: 2rem 1.5rem;
+      box-shadow: var(--shadow);
+      margin-bottom: 2rem;
+      animation: fadeIn 1s;
     }
-    .section p {
-      line-height: 1.6;
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+    ul {
+      padding-left: 1.2rem;
+    }
+    .ejercicios {
+      background: #ecf7ff;
+      border-left: 4px solid var(--primary-color);
+      padding: 1rem;
+      border-radius: 6px;
+      margin: 1.5rem 0;
+    }
+    .audio-btn {
+      display: inline-block;
+      background: var(--primary-color);
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      padding: 0.3rem 0.8rem;
+      cursor: pointer;
+      margin-left: 0.5rem;
+      font-size: 1rem;
+      transition: background 0.2s;
+    }
+    .audio-btn:hover {
+      background: #18579a;
+    }
+    @media (max-width: 950px) {
+      .sidebar-menu {
+        float: none;
+        max-width: 100%;
+        margin-bottom: 1.5rem;
+        min-height: unset;
+      }
+      .main-content {
+        margin-left: 0;
+      }
+    }
+    @media (max-width: 600px) {
+      .container, .section {
+        padding: 1rem;
+      }
+      h1 {
+        font-size: 1.3rem;
+      }
     }
     footer {
       text-align: center;
-      margin-top: 2rem;
+      margin: 2rem 0 1rem 0;
       color: #666;
-      font-size: 0.9rem;
+      font-size: 0.95rem;
+    }
+    .clearfix::after {
+      content: "";
+      display: table;
+      clear: both;
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>Beginner Unit 4</h1>
-    <p>Spanish Lessons Online</p>
+    <h1>Unidad 4 para Principiantes</h1>
+    <p>Lecciones de Español Online - Ixchel School</p>
+    <nav>
+      <a href="#vocabulario">Vocabulario</a>
+      <a href="#gramatica">Gramática</a>
+      <a href="#ejercicios">Ejercicios</a>
+      <a href="#recursos">Recursos</a>
+    </nav>
   </header>
 
-  <div class="section">
-    <p>Bienvenido a la unidad 4 para principiantes. Aquí aprenderás vocabulario y gramática básica para expresarte en español.</p>
-    <ul>
-      <li>Vocabulario: objetos comunes, actividades diarias</li>
-      <li>Gramática: verbos regulares en presente</li>
-      <li>Ejercicios: escucha, escritura, lectura y práctica oral</li>
-    </ul>
-    <p>Recuerda seguir las instrucciones del profesor y practicar diariamente.</p>
-  </div>
+  <div class="container clearfix">
+    <!-- Menú lateral de acceso rápido -->
+    <aside class="sidebar-menu">
+      <h3>Acceso a Unidades</h3>
+      <ul>
+        <li><a href="#unidad1">Unidad 1: Saludos y Presentaciones</a></li>
+        <li><a href="#unidad2">Unidad 2: Números y Colores</a></li>
+        <li><a href="#unidad3">Unidad 3: La Familia</a></li>
+        <li><a href="#unidad4" class="active">Unidad 4: Objetos y Verbos</a></li>
+        <li><a href="#unidad5">Unidad 5: La Escuela</a></li>
+      </ul>
+      <h3 style="margin-top:1.5rem;">Bloques de la Unidad 4</h3>
+      <ul>
+        <li><a href="#vocabulario">Vocabulario</a></li>
+        <li><a href="#gramatica">Gramática</a></li>
+        <li><a href="#ejercicios">Ejercicios</a></li>
+        <li><a href="#recursos">Recursos</a></li>
+      </ul>
+    </aside>
+    
+    <main class="main-content">
+      <!-- Simulación de otras unidades solo a modo de ejemplo -->
+      <section id="unidad1" class="section" style="display:none;">
+        <h2>Unidad 1: Saludos y Presentaciones</h2>
+        <p>¡Bienvenido! Aprende a saludar y presentarte en español.</p>
+      </section>
+      <section id="unidad2" class="section" style="display:none;">
+        <h2>Unidad 2: Números y Colores</h2>
+        <p>Aprende los números y los colores básicos en español.</p>
+      </section>
+      <section id="unidad3" class="section" style="display:none;">
+        <h2>Unidad 3: La Familia</h2>
+        <p>Conoce el vocabulario de la familia y cómo describirla.</p>
+      </section>
+      <section id="unidad4" class="section">
+        <h2>Unidad 4: Objetos y Verbos</h2>
+        <p>Bienvenido a la Unidad 4. Aquí aprenderás vocabulario y gramática básica para expresarte en español.</p>
+      </section>
+      <section id="unidad5" class="section" style="display:none;">
+        <h2>Unidad 5: La Escuela</h2>
+        <p>Vocabulario y frases útiles sobre la escuela.</p>
+      </section>
+      <!-- Fin simulación otras unidades -->
 
+      <section id="vocabulario" class="section">
+        <h2>Vocabulario: Objetos Comunes y Actividades Diarias</h2>
+        <ul>
+          <li>La mesa <button class="audio-btn" onclick="playAudio('mesa')">🔊</button></li>
+          <li>El libro <button class="audio-btn" onclick="playAudio('libro')">🔊</button></li>
+          <li>El bolígrafo <button class="audio-btn" onclick="playAudio('boligrafo')">🔊</button></li>
+          <li>Desayunar <button class="audio-btn" onclick="playAudio('desayunar')">🔊</button></li>
+          <li>Leer <button class="audio-btn" onclick="playAudio('leer')">🔊</button></li>
+          <li>Estudiar <button class="audio-btn" onclick="playAudio('estudiar')">🔊</button></li>
+        </ul>
+      </section>
+
+      <section id="gramatica" class="section">
+        <h2>Gramática: Verbos Regulares en Presente</h2>
+        <table style="width:100%; border-collapse:collapse;">
+          <thead>
+            <tr style="background:#f5f7fa;">
+              <th style="padding:0.5rem; border-bottom:1px solid #ddd;">Verbo</th>
+              <th style="padding:0.5rem; border-bottom:1px solid #ddd;">Conjugación (yo)</th>
+              <th style="padding:0.5rem; border-bottom:1px solid #ddd;">Ejemplo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Estudiar</td>
+              <td>estudio</td>
+              <td>Yo estudio español.</td>
+            </tr>
+            <tr>
+              <td>Leer</td>
+              <td>leo</td>
+              <td>Yo leo un libro.</td>
+            </tr>
+            <tr>
+              <td>Desayunar</td>
+              <td>desayuno</td>
+              <td>Yo desayuno a las 8.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="ejercicios" class="section ejercicios">
+        <h2>Ejercicios Prácticos</h2>
+        <ol>
+          <li>Escucha la pronunciación de los objetos y repite en voz alta.</li>
+          <li>Escribe 3 frases usando los verbos estudiados.</li>
+          <li>Lee en voz alta el vocabulario del día.</li>
+          <li>Graba un audio presentándote y diciendo una actividad que haces cada día.</li>
+        </ol>
+        <p><strong>Tip:</strong> ¡Practica a diario para mejorar más rápido!</p>
+      </section>
+
+      <section id="recursos" class="section">
+        <h2>Recursos Adicionales</h2>
+        <ul>
+          <li><a href="https://www.spanishdict.com/" target="_blank" rel="noopener">Diccionario Español-Inglés</a></li>
+          <li><a href="https://conjuguemos.com/" target="_blank" rel="noopener">Práctica de conjugaciones</a></li>
+          <li><a href="https://www.youtube.com/results?search_query=español+para+principiantes" target="_blank" rel="noopener">Videos para principiantes</a></li>
+        </ul>
+      </section>
+    </main>
+    <div style="clear:both;"></div>
+  </div>
   <footer>
-    &copy; 2025 Spanish Lessons Online - Ixchel School
+    &copy; 2025 Spanish Lessons Online - Ixchel School.<br>
+    <span>¿Tienes dudas? <a href="mailto:info@ixchelschool.com">Contáctanos</a></span>
   </footer>
+
+  <audio id="audio-player"></audio>
+  <script>
+    // Simulación de audios para cada palabra (en producción, usar archivos reales)
+    const audios = {
+      mesa: "https://cdn.pixabay.com/audio/2022/03/15/audio_115b9b7a3c.mp3",
+      libro: "https://cdn.pixabay.com/audio/2022/03/15/audio_115b9b7a3c.mp3",
+      boligrafo: "https://cdn.pixabay.com/audio/2022/03/15/audio_115b9b7a3c.mp3",
+      desayunar: "https://cdn.pixabay.com/audio/2022/03/15/audio_115b9b7a3c.mp3",
+      leer: "https://cdn.pixabay.com/audio/2022/03/15/audio_115b9b7a3c.mp3",
+      estudiar: "https://cdn.pixabay.com/audio/2022/03/15/audio_115b9b7a3c.mp3"
+    };
+    function playAudio(word) {
+      const audioPlayer = document.getElementById('audio-player');
+      if(audios[word]) {
+        audioPlayer.src = audios[word];
+        audioPlayer.play();
+      } else {
+        alert("Audio no disponible.");
+      }
+    }
+
+    // Simulación de navegación (mostrar solo la unidad seleccionada)
+    document.querySelectorAll('.sidebar-menu a[href^="#unidad"]').forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        let unidad = this.getAttribute('href');
+        document.querySelectorAll('.section[id^="unidad"]').forEach(sec => sec.style.display = 'none');
+        let activeSection = document.querySelector(unidad);
+        if(activeSection) activeSection.style.display = 'block';
+        // Resalta la unidad activa en el menú
+        document.querySelectorAll('.sidebar-menu a[href^="#unidad"]').forEach(a => a.classList.remove('active'));
+        this.classList.add('active');
+        // Desplaza al inicio del contenido principal
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+  </script>
 </body>
 </html>
