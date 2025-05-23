@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Plataforma Estudiantes - Ixchel School</title>
+  <link rel="icon" href="favicon.ico">
+  <meta name="description" content="Plataforma de estudiantes de Ixchel School. Cada estudiante puede avanzar, ver su perfil, personalizar su usuario y más.">
+  <meta name="author" content="Ixchel School">
+  <style>
+    :root {
+      --primary-color: #2d89ef;
+      --secondary-color: #f0f2f5;
+      --accent-color: #fff8e1;
+      --highlight: #18579a;
+      --card-bg: #fff;
+      --radius: 16px;
+      --shadow: 0 4px 24px #2d89ef13;
+      --gradient: linear-gradient(90deg, #2d89ef 0%, #18579a 100%);
+    }
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: var(--secondary-color);
+      color: #222;
+    }
+    header {
+      background: var(--gradient);
+      color: #fff;
+      padding: 2.2rem 1rem 1.2rem 1rem;
+      text-align: center;
+      border-radius: 0 0 var(--radius) var(--radius);
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+    h1 {
+      font-size: 2.2rem;
+      margin: 0 0 0.2em 0;
+      letter-spacing: 0.5px;
+    }
+    nav {
+      margin: 1em 0 0 0;
+    }
+    nav a {
+      color: #fff;
+      background: var(--primary-color);
+      text-decoration: none;
+      margin: 0 0.5rem;
+      padding: 0.32rem 1rem;
+      border-radius: 6px;
+      transition: background 0.2s;
+      font-weight: 500;
+      font-size: 1rem;
+    }
+    nav a:hover {
+      background: #18579a;
+    }
+    .login-btn {
+      position: absolute;
+      right: 2.1rem;
+      top: 2.1rem;
+      background: #fff;
+      color: var(--primary-color);
+      border: none;
+      padding: 0.5rem 1.2rem;
+      border-radius: 30px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      transition: background 0.2s, color 0.2s;
+      z-index:2;
+    }
+    .login-btn:hover {
+      background: var(--primary-color);
+      color: #fff;
+    }
+    .user-info {
+      position: absolute;
+      right: 2.1rem;
+      top: 2.1rem;
+      background: #fff;
+      color: var(--primary-color);
+      border-radius: 30px;
+      padding: 0.5rem 1.2rem;
+      font-weight: 600;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      z-index:2;
+    }
+    .user-info .logout-btn {
+      background: transparent;
+      border: none;
+      color: var(--primary-color);
+      font-weight: 600;
+      cursor: pointer;
+      margin-left: 0.5rem;
+      transition: color 0.2s;
+    }
+    .user-info .logout-btn:hover {
+      color: #e53935;
+    }
+    .user-info .profile-btn {
+      background: transparent;
+      border: none;
+      color: var(--primary-color);
+      font-weight: 600;
+      cursor: pointer;
+      margin-left: 0.5rem;
+      transition: color 0.2s;
+    }
+    .user-info .profile-btn:hover {
+      color: #18579a;
+    }
+    .user-info .avatar-thumb {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #eaf1fb;
+      background: #eaf1fb;
+      margin-right: 0.6em;
+    }
+    .container {
+      max-width: 950px;
+      margin: 2.5rem auto 0 auto;
+      padding: 0 1rem;
+    }
+    .sidebar-menu {
+      background: var(--accent-color);
+      border-radius: var(--radius);
+      padding: 1.2rem 1rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow);
+      max-width: 250px;
+      float: left;
+      min-height: 400px;
+    }
+    .sidebar-menu h3 {
+      margin-top: 0;
+      font-size: 1.2rem;
+      color: var(--primary-color);
+    }
+    .sidebar-menu ul {
+      list-style: disc inside;
+      margin: 0;
+      padding: 0;
+    }
+    .sidebar-menu li {
+      margin: 0.4rem 0;
+    }
+    .sidebar-menu a {
+      color: var(--highlight);
+      text-decoration: none;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      transition: background 0.15s;
+      display: inline-block;
+      font-weight: 500;
+    }
+    .sidebar-menu a:hover, .sidebar-menu a.active {
+      background: var(--primary-color);
+      color: #fff;
+    }
+    .main-content {
+      margin-left: 270px;
+    }
+    .section {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 2rem 1.5rem;
+      box-shadow: var(--shadow);
+      margin-bottom: 2rem;
+      animation: fadeIn 1s;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+    ul { padding-left: 1.2rem; }
+    .ejercicios {
+      background: #ecf7ff;
+      border-left: 4px solid var(--primary-color);
+      padding: 1rem;
+      border-radius: 6px;
+      margin: 1.5rem 0;
+    }
+    .audio-btn {
+      display: inline-block;
+      background: var(--primary-color);
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      padding: 0.3rem 0.8rem;
+      cursor: pointer;
+      margin-left: 0.5rem;
+      font-size: 1rem;
+      transition: background 0.2s;
+    }
+    .audio-btn:hover {
+      background: #18579a;
+    }
+    /* Perfil modal */
+    .profile-modal-bg {
+      display: none;
+      position: fixed;
+      z-index: 20;
+      left: 0; top: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.18);
+    }
+    .profile-modal {
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      max-width: 380px;
+      width: 97%;
+      margin: 5% auto 0 auto;
+      padding: 2rem 1.5rem 1.5rem 1.5rem;
+      position: relative;
+      z-index: 100;
+    }
+    .profile-modal h2 {
+      margin-top: 0;
+      color: var(--primary-color);
+      font-size: 1.35rem;
+      margin-bottom: 1.1rem;
+    }
+    .profile-modal label {
+      display: block;
+      margin-bottom: 0.2rem;
+      font-weight: 500;
+    }
+    .profile-modal input[type="text"],
+    .profile-modal input[type="password"] {
+      width: 100%;
+      padding: 0.5rem;
+      margin-bottom: 0.8rem;
+      font-size: 1rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    .profile-modal .modal-actions {
+      text-align: right;
+      margin-top: 1em;
+    }
+    .profile-modal .modal-actions button {
+      margin-left: 0.5rem;
+    }
+    .profile-modal .modal-close {
+      position: absolute;
+      top: 0.8rem;
+      right: 0.8rem;
+      background: transparent;
+      border: none;
+      font-size: 1.2rem;
+      color: #888;
+      cursor: pointer;
+    }
+    .profile-summary {
+      margin: 0.6em 0 0 0;
+      color: #2d89ef;
+    }
+    .profile-modal .profile-list {
+      margin: 0.7em 0 0 0.2em;
+      color: #333;
+    }
+    .profile-modal .profile-list li {
+      margin-bottom: .3em;
+      font-size: 1em;
+    }
+    .profile-avatar {
+      display: flex;
+      align-items: center;
+      gap: 1em;
+      margin-bottom: 1em;
+    }
+    .profile-avatar img {
+      width: 70px;
+      height: 70px;
+      object-fit: cover;
+      border-radius: 50%;
+      box-shadow: 0 2px 8px #2d89ef28;
+      border: 2px solid #eaf1fb;
+      background: #eaf1fb;
+    }
+    .profile-avatar label {
+      font-weight: 400;
+      color: #444;
+      margin-bottom: 0.2em;
+    }
+    .profile-modal input[type="file"] {
+      margin-top: 0.3em;
+    }
+    /* Modal login/register */
+    .modal-bg {
+      display: none;
+      position: fixed;
+      z-index: 10;
+      left: 0; top: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.25);
+    }
+    .modal {
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      max-width: 370px;
+      width: 95%;
+      margin: 5% auto 0 auto;
+      padding: 2rem 1.5rem 1.5rem 1.5rem;
+      position: relative;
+      z-index: 100;
+      animation: fadeIn 0.7s;
+    }
+    .modal h2 {
+      margin-top: 0;
+      color: var(--primary-color);
+    }
+    .modal label {
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+    .modal input[type="text"],
+    .modal input[type="password"] {
+      width: 100%;
+      padding: 0.5rem;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    .modal .modal-actions {
+      text-align: right;
+    }
+    .modal .modal-actions button {
+      margin-left: 0.5rem;
+    }
+    .modal .modal-close {
+      position: absolute;
+      top: 0.8rem;
+      right: 0.8rem;
+      background: transparent;
+      border: none;
+      font-size: 1.2rem;
+      color: #888;
+      cursor: pointer;
+    }
+    .modal .modal-link {
+      color: var(--primary-color);
+      text-decoration: underline;
+      cursor: pointer;
+      font-size: 0.95em;
+      margin-left: 0.1em;
+    }
+    .modal .modal-link:hover {
+      color: #18579a;
+    }
+    .register-success {
+      color: #2e7d32;
+      margin-top: 0.5rem;
+      font-size: 0.95em;
+      text-align: center;
+    }
+    .register-error {
+      color: #e53935;
+      margin-top: 0.5rem;
+      font-size: 0.95em;
+      text-align: center;
+    }
+    @media (max-width: 950px) {
+      .sidebar-menu {
+        float: none;
+        max-width: 100%;
+        margin-bottom: 1.5rem;
+        min-height: unset;
+      }
+      .main-content {
+        margin-left: 0;
+      }
+      .login-btn, .user-info {
+        right: 1rem;
+      }
+    }
+    @media (max-width: 600px) {
+      .container, .section {
+        padding: 1rem;
+      }
+      h1 {
+        font-size: 1.3rem;
+      }
+      .login-btn, .user-info {
+        top: 1rem;
+        right: 0.5rem;
+        padding: 0.4rem 0.7rem;
+        font-size: 0.9rem;
+      }
+      .profile-modal, .modal {
+        padding: 1.2rem 0.6rem 0.8rem 0.6rem;
+      }
+    }
+    footer {
+      background: #eaf1fb;
+      margin-top: 3rem;
+      padding: 1.2rem 0;
+      text-align: center;
+      font-size: 1rem;
+      color: #2d89ef;
+      border-radius: var(--radius) var(--radius) 0 0;
+      box-shadow: 0 -2px 12px #18579a13;
+      letter-spacing: 0.2px;
+    }
+    .clearfix::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Plataforma Estudiantes</h1>
+    <nav>
+      <a href="index.html">&larr; Inicio</a>
+      <a href="#vocabulario">Vocabulario</a>
+      <a href="#gramatica">Gramática</a>
+      <a href="#ejercicios">Ejercicios</a>
+      <a href="#recursos">Recursos</a>
+    </nav>
+    <button class="login-btn" id="openLoginBtn">Iniciar sesión</button>
+    <div class="user-info" id="userInfo" style="display:none;">
+      <img src="" alt="Avatar" class="avatar-thumb" id="userAvatarThumb" style="display:none;">
+      <span id="usernameDisplay"></span>
+      <button class="profile-btn" id="profileBtn" title="Ver perfil">Perfil</button>
+      <button class="logout-btn" id="logoutBtn" title="Cerrar sesión">Salir</button>
+    </div>
+  </header>
+
+  <!-- Modal de login -->
+  <div class="modal-bg" id="loginModalBg">
+    <div class="modal">
+      <button class="modal-close" id="closeLoginBtn" title="Cerrar">&times;</button>
+      <h2>Iniciar sesión</h2>
+      <form id="loginForm" autocomplete="off">
+        <label for="username">Usuario:</label>
+        <input type="text" id="username" required placeholder="Tu usuario o email">
+        <label for="password">Contraseña:</label>
+        <input type="password" id="password" required placeholder="Contraseña">
+        <div class="modal-actions">
+          <button type="button" id="cancelLoginBtn">Cancelar</button>
+          <button type="submit">Entrar</button>
+        </div>
+      </form>
+      <div id="loginError" style="color:#e53935; margin-top:0.5rem;display:none;">Usuario o contraseña incorrectos</div>
+      <div style="margin-top:0.5rem; text-align:center;">
+        ¿No tienes cuenta? <span class="modal-link" id="goToRegister">Regístrate aquí</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de registro -->
+  <div class="modal-bg" id="registerModalBg">
+    <div class="modal">
+      <button class="modal-close" id="closeRegisterBtn" title="Cerrar">&times;</button>
+      <h2>Registrarse</h2>
+      <form id="registerForm" autocomplete="off">
+        <label for="registerNombre">Nombre completo:</label>
+        <input type="text" id="registerNombre" required placeholder="Tu nombre">
+        <label for="registerUsername">Usuario:</label>
+        <input type="text" id="registerUsername" required placeholder="Elige un usuario">
+        <label for="registerPassword">Contraseña:</label>
+        <input type="password" id="registerPassword" required placeholder="Contraseña">
+        <label for="registerAvatar">Foto de perfil (opcional):</label>
+        <input type="file" id="registerAvatar" accept="image/*">
+        <div class="modal-actions">
+          <button type="button" id="cancelRegisterBtn">Cancelar</button>
+          <button type="submit">Registrar</button>
+        </div>
+      </form>
+      <div class="register-success" id="registerSuccess" style="display:none;">¡Registro exitoso! Ya puedes iniciar sesión.</div>
+      <div class="register-error" id="registerError" style="display:none;">Ese usuario ya existe. Elige otro.</div>
+      <div style="margin-top:0.5rem; text-align:center;">
+        ¿Ya tienes cuenta? <span class="modal-link" id="goToLogin">Inicia sesión</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de perfil -->
+  <div class="profile-modal-bg" id="profileModalBg">
+    <div class="profile-modal">
+      <button class="modal-close" id="closeProfileBtn" title="Cerrar">&times;</button>
+      <h2>Mi Perfil</h2>
+      <form id="profileForm">
+        <div class="profile-avatar">
+          <img src="" id="profileAvatarImg" alt="Avatar de usuario">
+          <div>
+            <label for="profileAvatarInput">Cambiar foto de perfil:</label>
+            <input type="file" id="profileAvatarInput" accept="image/*">
+          </div>
+        </div>
+        <label>Nombre:</label>
+        <input type="text" id="profileNombreInput" required>
+        <label>Usuario:</label>
+        <input type="text" id="profileUsernameInput" required disabled>
+        <label>Nueva contraseña:</label>
+        <input type="password" id="profilePasswordInput" placeholder="Opcional">
+        <div class="modal-actions">
+          <button type="button" id="closeProfileBtn2">Cerrar</button>
+          <button type="submit">Guardar cambios</button>
+        </div>
+      </form>
+      <label>Progreso en ejercicios:</label>
+      <ul id="profileProgreso" class="profile-list"></ul>
+    </div>
+  </div>
+
+  <div class="container clearfix">
+    <!-- Menú lateral de acceso rápido -->
+    <aside class="sidebar-menu">
+      <h3>Acceso a Unidades</h3>
+      <ul>
+        <li><a href="#unidad1">Unidad 1: Saludos y Presentaciones</a></li>
+        <li><a href="#unidad2">Unidad 2: Números y Colores</a></li>
+        <li><a href="#unidad3">Unidad 3: La Familia</a></li>
+        <li><a href="#unidad4" class="active">Unidad 4: Objetos y Verbos</a></li>
+        <li><a href="#unidad5">Unidad 5: La Escuela</a></li>
+      </ul>
+      <h3 style="margin-top:1.5rem;">Bloques de la Unidad 4</h3>
+      <ul>
+        <li><a href="#vocabulario">Vocabulario</a></li>
+        <li><a href="#gramatica">Gramática</a></li>
+        <li><a href="#ejercicios">Ejercicios</a></li>
+        <li><a href="#recursos">Recursos</a></li>
+      </ul>
+    </aside>
+    
+    <main class="main-content">
+      <!-- Simulación de otras unidades solo a modo de ejemplo -->
+      <section id="unidad1" class="section" style="display:none;">
+        <h2>Unidad 1: Saludos y Presentaciones</h2>
+        <p>¡Bienvenido! Aprende a saludar y presentarte en español.</p>
+      </section>
+      <section id="unidad2" class="section" style="display:none;">
+        <h2>Unidad 2: Números y Colores</h2>
+        <p>Aprende los números y los colores básicos en español.</p>
+      </section>
+      <section id="unidad3" class="section" style="display:none;">
+        <h2>Unidad 3: La Familia</h2>
+        <p>Conoce el vocabulario de la familia y cómo describirla.</p>
+      </section>
+      <section id="unidad4" class="section">
+        <h2>Unidad 4: Objetos y Verbos</h2>
+        <p>Bienvenido a la Unidad 4. Aquí aprenderás vocabulario y gramática básica para expresarte en español.</p>
+        <div id="avanceUsuario" style="margin-top:1.2rem; color: #2d89ef; background:#ecf7ff; padding:0.9rem 1.1rem; border-radius:6px; display:none;">
+          <strong>Tu progreso:</strong>
+          <ul id="progresoLista"></ul>
+        </div>
+      </section>
+      <section id="unidad5" class="section" style="display:none;">
+        <h2>Unidad 5: La Escuela</h2>
+        <p>Vocabulario y frases útiles sobre la escuela.</p>
+      </section>
+
+      <section id="vocabulario" class="section">
+        <h2>Vocabulario: Objetos Comunes y Actividades Diarias</h2>
+        <ul>
+          <li>La mesa <button class="audio-btn" onclick="playAudio('mesa')">🔊</button></li>
+          <li>El libro <button class="audio-btn" onclick="playAudio('libro')">🔊</button></li>
+          <li>El bolígrafo <button class="audio-btn" onclick="playAudio('boligrafo')">🔊</button></li>
+          <li>Desayunar <button class="audio-btn" onclick="playAudio('desayunar')">🔊</button></li>
+          <li>Leer <button class="audio-btn" onclick="playAudio('leer')">🔊</button></li>
+          <li>Estudiar <button class="audio-btn" onclick="playAudio('estudiar')">🔊</button></li>
+        </ul>
+      </section>
+
+      <section id="gramatica" class="section">
+        <h2>Gramática: Verbos Regulares en Presente</h2>
+        <table style="width:100%; border-collapse:collapse;">
+          <thead>
+            <tr style="background:#f5f7fa;">
+              <th style="padding:0.5rem; border-bottom:1px solid #ddd;">Verbo</th>
+              <th style="padding:0.5rem; border-bottom:1px solid #ddd;">Conjugación (yo)</th>
+              <th style="padding:0.5rem; border-bottom:1px solid #ddd;">Ejemplo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Estudiar</td>
+              <td>estudio</td>
+              <td>Yo estudio español.</td>
+            </tr>
+            <tr>
+              <td>Leer</td>
+              <td>leo</td>
+              <td>Yo leo un libro.</td>
+            </tr>
+            <tr>
+              <td>Desayunar</td>
+              <td>desayuno</td>
+              <td>Yo desayuno a las 8.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="ejercicios" class="section ejercicios">
+        <h2>Ejercicios Prácticos</h2>
+        <ol>
+          <li><input type="checkbox" class="progreso-chk" data-bloque="Vocabulario"> Escucha la pronunciación de los objetos y repite en voz alta.</li>
+          <li><input type="checkbox" class="progreso-chk" data-bloque="Gramática"> Escribe 3 frases usando los verbos estudiados.</li>
+          <li><input type="checkbox" class="progreso-chk" data-bloque="Vocabulario"> Lee en voz alta el vocabulario del día.</li>
+          <li><input type="checkbox" class="progreso-chk" data-bloque="Presentación"> Graba un audio presentándote y diciendo una actividad que haces cada día.</li>
+        </ol>
+        <p><strong>Tip:</strong> ¡Practica a diario para mejorar más rápido!</p>
+      </section>
+
+      <section id="recursos" class="section">
+        <h2>Recursos Adicionales</h2>
+        <ul>
+          <li><a href="https://www.spanishdict.com/" target="_blank" rel="noopener">Diccionario Español-Inglés</a></li>
+          <li><a href="https://conjuguemos.com/" target="_blank" rel="noopener">Práctica de conjugaciones</a></li>
+          <li><a href="https://www.youtube.com/results?search_query=español+para+principiantes" target="_blank" rel="noopener">Videos para principiantes</a></li>
+        </ul>
+      </section>
+    </main>
+    <div style="clear:both;"></div>
+  </div>
+  <footer>
+    &copy; 2025 Ixchel School · info@ixchelschool.com
+  </footer>
+
+  <audio id="audio-player"></audio>
+  <script>
+    // Audios demo
+    const audios = {
+      mesa: "https://cdn.pixabay.com/audio/2022/03/15/audio_115b9b7a3c.mp3",
+      libro: "https://cdn.pixabay.com/audio/2022/03/15/audio_115b9b7a3c.mp3",
+      boligrafo: "https://cdn.pixabay.com/audio/2022/03/15/audio_115b9b7a3c.mp3",
+      desayunar: "https://cdn.pixabay.com/audio/2022/03/15/audio_115b9b7a3c.mp3",
+      leer: "https://cdn.pixabay.com/audio/2022/03/15/audio_115b9b7a3c.mp3",
+      estudiar: "https://cdn.pixabay.com/audio/2022/03/15/audio_115b9b7a3c.mp3"
+    };
+    function playAudio(word) {
+      const audioPlayer = document.getElementById('audio-player');
+      if(audios[word]) {
+        audioPlayer.src = audios[word];
+        audioPlayer.play();
+      } else {
+        alert("Audio no disponible.");
+      }
+    }
+
+    // Navegación unidades
+    document.querySelectorAll('.sidebar-menu a[href^="#unidad"]').forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        let unidad = this.getAttribute('href');
+        document.querySelectorAll('.section[id^="unidad"]').forEach(sec => sec.style.display = 'none');
+        let activeSection = document.querySelector(unidad);
+        if(activeSection) activeSection.style.display = 'block';
+        document.querySelectorAll('.sidebar-menu a[href^="#unidad"]').forEach(a => a.classList.remove('active'));
+        this.classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+
+    // --------- GESTIÓN DE USUARIOS Y SESIÓN ----------
+    function getStoredUsers() {
+      let u = localStorage.getItem('appUsers');
+      try { return u ? JSON.parse(u) : []; } catch { return []; }
+    }
+    function setStoredUsers(users) {
+      localStorage.setItem('appUsers', JSON.stringify(users));
+    }
+    if(!localStorage.getItem('appUsers')) {
+      setStoredUsers([
+        { username: 'alumno1', password: '1234', nombre: 'María González', avatar: "" },
+        { username: 'alumno2', password: 'abcd', nombre: 'Juan Pérez', avatar: "" }
+      ]);
+    }
+    function userAvatarOrDefault(user) {
+      return user && user.avatar ? user.avatar : "https://ui-avatars.com/api/?name=" + encodeURIComponent(user.nombre || user.username || "Estudiante") + "&background=2d89ef&color=fff&rounded=true&size=128";
+    }
+    const openLoginBtn = document.getElementById('openLoginBtn');
+    const loginModalBg = document.getElementById('loginModalBg');
+    const closeLoginBtn = document.getElementById('closeLoginBtn');
+    const cancelLoginBtn = document.getElementById('cancelLoginBtn');
+    const loginForm = document.getElementById('loginForm');
+    const loginError = document.getElementById('loginError');
+    const userInfo = document.getElementById('userInfo');
+    const usernameDisplay = document.getElementById('usernameDisplay');
+    const logoutBtn = document.getElementById('logoutBtn');
+    const profileBtn = document.getElementById('profileBtn');
+    const userAvatarThumb = document.getElementById('userAvatarThumb');
+    const progresoChecks = document.querySelectorAll('.progreso-chk');
+    // Registro
+    const registerModalBg = document.getElementById('registerModalBg');
+    const closeRegisterBtn = document.getElementById('closeRegisterBtn');
+    const cancelRegisterBtn = document.getElementById('cancelRegisterBtn');
+    const registerForm = document.getElementById('registerForm');
+    const registerSuccess = document.getElementById('registerSuccess');
+    const registerError = document.getElementById('registerError');
+    const goToRegister = document.getElementById('goToRegister');
+    const goToLogin = document.getElementById('goToLogin');
+    const registerAvatar = document.getElementById('registerAvatar');
+    // Perfil
+    const profileModalBg = document.getElementById('profileModalBg');
+    const closeProfileBtn = document.getElementById('closeProfileBtn');
+    const closeProfileBtn2 = document.getElementById('closeProfileBtn2');
+    const profileForm = document.getElementById('profileForm');
+    const profileAvatarImg = document.getElementById('profileAvatarImg');
+    const profileAvatarInput = document.getElementById('profileAvatarInput');
+    const profileNombreInput = document.getElementById('profileNombreInput');
+    const profileUsernameInput = document.getElementById('profileUsernameInput');
+    const profilePasswordInput = document.getElementById('profilePasswordInput');
+    const profileProgreso = document.getElementById('profileProgreso');
+
+    // Mostrar modal login
+    openLoginBtn.onclick = () => { loginModalBg.style.display = "block"; };
+    closeLoginBtn.onclick = cancelLoginBtn.onclick = () => {
+      loginModalBg.style.display = "none";
+      loginForm.reset();
+      loginError.style.display = "none";
+    };
+
+    // Mostrar modal registro
+    goToRegister.onclick = function() {
+      loginModalBg.style.display = "none";
+      registerModalBg.style.display = "block";
+      registerForm.reset();
+      registerSuccess.style.display = "none";
+      registerError.style.display = "none";
+    };
+    goToLogin.onclick = function() {
+      registerModalBg.style.display = "none";
+      loginModalBg.style.display = "block";
+      loginError.style.display = "none";
+    };
+    closeRegisterBtn.onclick = cancelRegisterBtn.onclick = function() {
+      registerModalBg.style.display = "none";
+      registerForm.reset();
+      registerSuccess.style.display = "none";
+      registerError.style.display = "none";
+    };
+
+    // Progreso de usuario (simulado por localStorage)
+    function guardarProgreso(username, progreso) {
+      localStorage.setItem("progreso_" + username, JSON.stringify(progreso));
+    }
+    function cargarProgreso(username) {
+      let prog = localStorage.getItem("progreso_" + username);
+      return prog ? JSON.parse(prog) : [];
+    }
+    function mostrarProgresoUsuario(username) {
+      let progreso = cargarProgreso(username);
+      const avanceDiv = document.getElementById('avanceUsuario');
+      const lista = document.getElementById('progresoLista');
+      lista.innerHTML = "";
+      if (progreso.length === 0) {
+        avanceDiv.style.display = "none";
+        return;
+      }
+      avanceDiv.style.display = "block";
+      progreso.forEach(bloque => {
+        let li = document.createElement("li");
+        li.textContent = bloque;
+        lista.appendChild(li);
+      });
+    }
+
+    // Login
+    loginForm.onsubmit = function(e) {
+      e.preventDefault();
+      let username = document.getElementById('username').value.trim();
+      let password = document.getElementById('password').value;
+      let users = getStoredUsers();
+      let user = users.find(u => u.username === username && u.password === password);
+      if(user) {
+        localStorage.setItem("loggedUser", username);
+        loginModalBg.style.display = "none";
+        openLoginBtn.style.display = "none";
+        userInfo.style.display = "flex";
+        usernameDisplay.textContent = user.nombre;
+        userAvatarThumb.src = userAvatarOrDefault(user);
+        userAvatarThumb.style.display = "inline-block";
+        mostrarProgresoUsuario(username);
+        restaurarChecks(username);
+      } else {
+        loginError.style.display = "block";
+      }
+    };
+
+    // Registro
+    registerForm.onsubmit = function(e) {
+      e.preventDefault();
+      let nombre = document.getElementById('registerNombre').value.trim();
+      let username = document.getElementById('registerUsername').value.trim();
+      let password = document.getElementById('registerPassword').value;
+      let users = getStoredUsers();
+      if(users.find(u => u.username === username)) {
+        registerError.style.display = "block";
+        registerSuccess.style.display = "none";
+        return;
+      }
+      let avatarData = "";
+      if(registerAvatar && registerAvatar.files && registerAvatar.files[0]) {
+        let reader = new FileReader();
+        reader.onload = function(evt) {
+          avatarData = evt.target.result;
+          users.push({ username, password, nombre, avatar: avatarData });
+          setStoredUsers(users);
+          registerError.style.display = "none";
+          registerSuccess.style.display = "block";
+          setTimeout(() => {
+            registerModalBg.style.display = "none";
+            loginModalBg.style.display = "block";
+          }, 1400);
+        };
+        reader.readAsDataURL(registerAvatar.files[0]);
+        return;
+      }
+      users.push({ username, password, nombre, avatar: "" });
+      setStoredUsers(users);
+      registerError.style.display = "none";
+      registerSuccess.style.display = "block";
+      setTimeout(() => {
+        registerModalBg.style.display = "none";
+        loginModalBg.style.display = "block";
+      }, 1400);
+    };
+
+    // Logout
+    logoutBtn.onclick = function() {
+      localStorage.removeItem("loggedUser");
+      openLoginBtn.style.display = "inline-block";
+      userInfo.style.display = "none";
+      document.getElementById('avanceUsuario').style.display = "none";
+      progresoChecks.forEach(c => c.checked = false);
+    };
+
+    // Mantener sesión al recargar
+    window.onload = function() {
+      let username = localStorage.getItem("loggedUser");
+      if(username) {
+        let users = getStoredUsers();
+        let user = users.find(u => u.username === username);
+        if(user) {
+          openLoginBtn.style.display = "none";
+          userInfo.style.display = "flex";
+          usernameDisplay.textContent = user.nombre;
+          userAvatarThumb.src = userAvatarOrDefault(user);
+          userAvatarThumb.style.display = "inline-block";
+          mostrarProgresoUsuario(username);
+          restaurarChecks(username);
+        }
+      }
+    };
+
+    // Progreso por checkboxes
+    progresoChecks.forEach(chk => {
+      chk.addEventListener('change', function() {
+        let username = localStorage.getItem("loggedUser");
+        if(!username) return;
+        let progreso = cargarProgreso(username);
+        let desc = this.parentNode.textContent.trim();
+        if(this.checked && !progreso.includes(desc)) {
+          progreso.push(desc);
+        } else if(!this.checked && progreso.includes(desc)) {
+          progreso = progreso.filter(p => p !== desc);
+        }
+        guardarProgreso(username, progreso);
+        mostrarProgresoUsuario(username);
+      });
+    });
+
+    function restaurarChecks(username) {
+      let progreso = cargarProgreso(username);
+      progresoChecks.forEach(chk => {
+        let desc = chk.parentNode.textContent.trim();
+        chk.checked = progreso.includes(desc);
+      });
+    }
+
+    // --------- PERFIL DE USUARIO ---------
+    profileBtn.onclick = function() {
+      let username = localStorage.getItem("loggedUser");
+      if(!username) return;
+      let users = getStoredUsers();
+      let user = users.find(u => u.username === username);
+      if(!user) return;
+      profileAvatarImg.src = userAvatarOrDefault(user);
+      profileNombreInput.value = user.nombre;
+      profileUsernameInput.value = user.username;
+      profilePasswordInput.value = "";
+      let progreso = cargarProgreso(username);
+      profileProgreso.innerHTML = "";
+      if(progreso.length === 0) {
+        let li = document.createElement('li');
+        li.textContent = "Sin progreso aún.";
+        profileProgreso.appendChild(li);
+      } else {
+        progreso.forEach(bloque => {
+          let li = document.createElement('li');
+          li.textContent = bloque;
+          profileProgreso.appendChild(li);
+        });
+      }
+      profileModalBg.style.display = "block";
+    };
+    closeProfileBtn.onclick = closeProfileBtn2.onclick = function() {
+      profileModalBg.style.display = "none";
+    };
+
+    // Editar datos de perfil (nombre, contraseña, avatar)
+    profileForm.onsubmit = function(e) {
+      e.preventDefault();
+      let users = getStoredUsers();
+      let username = profileUsernameInput.value;
+      let user = users.find(u => u.username === username);
+      if(!user) return;
+      user.nombre = profileNombreInput.value.trim();
+      let newPassword = profilePasswordInput.value;
+      if(newPassword) user.password = newPassword;
+      // Avatar (si se eligió nuevo)
+      if(profileAvatarInput.files && profileAvatarInput.files[0]) {
+        let reader = new FileReader();
+        reader.onload = function(evt) {
+          user.avatar = evt.target.result;
+          setStoredUsers(users);
+          if(localStorage.getItem("loggedUser") === username) {
+            userAvatarThumb.src = userAvatarOrDefault(user);
+            userAvatarThumb.style.display = "inline-block";
+            usernameDisplay.textContent = user.nombre;
+          }
+          profileAvatarImg.src = userAvatarOrDefault(user);
+          alert("¡Cambios guardados!");
+          profileModalBg.style.display = "none";
+        };
+        reader.readAsDataURL(profileAvatarInput.files[0]);
+        return;
+      }
+      setStoredUsers(users);
+      if(localStorage.getItem("loggedUser") === username) {
+        userAvatarThumb.src = userAvatarOrDefault(user);
+        userAvatarThumb.style.display = "inline-block";
+        usernameDisplay.textContent = user.nombre;
+      }
+      alert("¡Cambios guardados!");
+      profileModalBg.style.display = "none";
+    };
+  </script>
+</body>
+</html>
