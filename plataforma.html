@@ -9,14 +9,16 @@
   <meta name="author" content="M&A Spanish Express">
   <style>
     :root {
-      --primary-color: #fea5ad;
-      --secondary-color: #fef6f8;
-      --accent-color: #fff8e1;
-      --highlight: #d68fa2;
+      --primary-color: #fecaca;
+      --secondary-color: #fff6f6;
+      --accent-color: #ffe4ec;
+      --highlight: #f8bbd0;
       --card-bg: #fff;
-      --radius: 16px;
+      --section-bg: #fff8fa;
+      --section-shadow: 0 8px 32px 0 #f8bbd022;
+      --radius: 20px;
       --shadow: 0 4px 24px #fea5ad13;
-      --gradient: linear-gradient(90deg, #fea5ad 0%, #ffd6e0 100%);
+      --gradient: linear-gradient(90deg, #fecaca 0%, #ffd6e0 100%);
     }
     body {
       font-family: 'Segoe UI', Arial, sans-serif;
@@ -55,7 +57,7 @@
       font-size: 1rem;
     }
     nav a:hover {
-      background: #d68fa2;
+      background: #f8bbd0;
     }
     .login-btn {
       position: absolute;
@@ -113,20 +115,22 @@
       transition: color 0.2s;
     }
     .user-info .profile-btn:hover {
-      color: #d68fa2;
+      color: #f8bbd0;
     }
     .user-info .avatar-thumb {
       width: 38px; height: 38px;
       border-radius: 50%;
       object-fit: cover;
-      border: 2px solid #fff3f6;
-      background: #fff3f6;
+      border: 2px solid #ffe4ec;
+      background: #ffe4ec;
       margin-right: 0.6em;
     }
     .container {
-      max-width: 950px;
+      max-width: 1100px;
       margin: 2.5rem auto 0 auto;
       padding: 0 1rem;
+      display: flex;
+      gap: 2rem;
     }
     .sidebar-menu {
       background: var(--accent-color);
@@ -134,9 +138,10 @@
       padding: 1.2rem 1rem;
       margin-bottom: 2rem;
       box-shadow: var(--shadow);
-      max-width: 250px;
-      float: left;
+      max-width: 260px;
+      min-width: 200px;
       min-height: 400px;
+      height: fit-content;
     }
     .sidebar-menu h3 {
       margin-top: 0;
@@ -165,15 +170,35 @@
       color: #fff;
     }
     .main-content {
-      margin-left: 270px;
+      flex: 1 1 0;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
     }
     .section {
-      background: var(--card-bg);
+      background: var(--section-bg);
       border-radius: var(--radius);
-      padding: 2rem 1.5rem;
-      box-shadow: var(--shadow);
-      margin-bottom: 2rem;
+      padding: 2.2rem 1.7rem;
+      box-shadow: var(--section-shadow);
+      margin-bottom: 0;
       animation: fadeIn 1s;
+      min-width: 0;
+      border: 1px solid #ffe4ec;
+      transition: box-shadow 0.2s, border 0.2s;
+    }
+    .section:hover {
+      box-shadow: 0 12px 40px 0 #f8bbd045;
+      border-color: #f8bbd0;
+    }
+    .section h2 {
+      color: #d68fa2;
+      margin-top: 0;
+      font-size: 1.35em;
+      letter-spacing: 0.2px;
+    }
+    .section:not(:last-child) {
+      margin-bottom: 0;
     }
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px);}
@@ -181,15 +206,16 @@
     }
     ul { padding-left: 1.2rem; }
     .ejercicios {
-      background: #fff3f6;
-      border-left: 4px solid var(--primary-color);
-      padding: 1rem;
-      border-radius: 6px;
+      background: #fff0f6;
+      border-left: 5px solid #fea5ad;
+      border-radius: var(--radius);
+      padding: 1.2rem 1.4rem;
       margin: 1.5rem 0;
+      box-shadow: 0 2px 12px #ffd6e023;
     }
     .audio-btn {
       display: inline-block;
-      background: var(--primary-color);
+      background: var(--highlight);
       color: #fff;
       border: none;
       border-radius: 4px;
@@ -200,7 +226,7 @@
       transition: background 0.2s;
     }
     .audio-btn:hover {
-      background: #d68fa2;
+      background: #fea5ad;
     }
     /* Perfil modal */
     .profile-modal-bg {
@@ -239,7 +265,8 @@
       margin-bottom: 0.8rem;
       font-size: 1rem;
       border-radius: 5px;
-      border: 1px solid #ccc;
+      border: 1px solid #fcc;
+      background: #fff8fa;
     }
     .profile-modal .modal-actions {
       text-align: right;
@@ -282,8 +309,8 @@
       object-fit: cover;
       border-radius: 50%;
       box-shadow: 0 2px 8px #fea5ad28;
-      border: 2px solid #fff3f6;
-      background: #fff3f6;
+      border: 2px solid #ffe4ec;
+      background: #ffe4ec;
     }
     .profile-avatar label {
       font-weight: 400;
@@ -328,7 +355,8 @@
       margin-bottom: 1rem;
       font-size: 1rem;
       border-radius: 5px;
-      border: 1px solid #ccc;
+      border: 1px solid #fcc;
+      background: #fff8fa;
     }
     .modal .modal-actions {
       text-align: right;
@@ -369,9 +397,13 @@
       text-align: center;
     }
     @media (max-width: 950px) {
+      .container {
+        flex-direction: column;
+        gap: 0;
+      }
       .sidebar-menu {
-        float: none;
         max-width: 100%;
+        min-width: unset;
         margin-bottom: 1.5rem;
         min-height: unset;
       }
@@ -382,10 +414,15 @@
         right: 1rem;
       }
     }
-    @media (max-width: 600px) {
-      .container, .section {
-        padding: 1rem;
+    @media (max-width: 700px) {
+      .section {
+        padding: 1rem 0.4rem;
       }
+      .main-content {
+        gap: 1rem;
+      }
+    }
+    @media (max-width: 600px) {
       h1 {
         font-size: 1.3rem;
       }
@@ -410,13 +447,7 @@
       box-shadow: 0 -2px 12px #ffd6e013;
       letter-spacing: 0.2px;
     }
-    .clearfix::after {
-      content: "";
-      display: table;
-      clear: both;
-    }
   </style>
-<!-- (Resto del HTML igual que antes, solo cambia el branding y los colores pastel/difuminados) -->
 </head>
 <body>
   <header>
@@ -436,6 +467,120 @@
       <button class="logout-btn" id="logoutBtn" title="Cerrar sesión">Salir</button>
     </div>
   </header>
-  <!-- El resto del contenido y scripts permanece igual que en la versión anterior, solo cambia el branding y las variables de color -->
+
+  <!-- Modal de login, registro y perfil igual que antes ... -->
+
+  <!-- ...copiar aquí los modales y scripts de la versión anterior... -->
+
+  <div class="container clearfix">
+    <!-- Menú lateral -->
+    <aside class="sidebar-menu">
+      <h3>Acceso a Unidades</h3>
+      <ul>
+        <li><a href="#unidad1">Unidad 1: Saludos y Presentaciones</a></li>
+        <li><a href="#unidad2">Unidad 2: Números y Colores</a></li>
+        <li><a href="#unidad3">Unidad 3: La Familia</a></li>
+        <li><a href="#unidad4" class="active">Unidad 4: Objetos y Verbos</a></li>
+        <li><a href="#unidad5">Unidad 5: La Escuela</a></li>
+      </ul>
+      <h3 style="margin-top:1.5rem;">Bloques de la Unidad 4</h3>
+      <ul>
+        <li><a href="#vocabulario">Vocabulario</a></li>
+        <li><a href="#gramatica">Gramática</a></li>
+        <li><a href="#ejercicios">Ejercicios</a></li>
+        <li><a href="#recursos">Recursos</a></li>
+      </ul>
+    </aside>
+    <main class="main-content">
+      <section id="unidad1" class="section" style="display:none;">
+        <h2>Unidad 1: Saludos y Presentaciones</h2>
+        <p>¡Bienvenido! Aprende a saludar y presentarte en español.</p>
+      </section>
+      <section id="unidad2" class="section" style="display:none;">
+        <h2>Unidad 2: Números y Colores</h2>
+        <p>Aprende los números y los colores básicos en español.</p>
+      </section>
+      <section id="unidad3" class="section" style="display:none;">
+        <h2>Unidad 3: La Familia</h2>
+        <p>Conoce el vocabulario de la familia y cómo describirla.</p>
+      </section>
+      <section id="unidad4" class="section">
+        <h2>Unidad 4: Objetos y Verbos</h2>
+        <p>Bienvenido a la Unidad 4. Aquí aprenderás vocabulario y gramática básica para expresarte en español.</p>
+        <div id="avanceUsuario" style="margin-top:1.2rem; color: #d68fa2; background:#fff0f6; padding:0.9rem 1.1rem; border-radius:12px; display:none; border:1.5px solid #f8bbd0;">
+          <strong>Tu progreso:</strong>
+          <ul id="progresoLista"></ul>
+        </div>
+      </section>
+      <section id="unidad5" class="section" style="display:none;">
+        <h2>Unidad 5: La Escuela</h2>
+        <p>Vocabulario y frases útiles sobre la escuela.</p>
+      </section>
+      <section id="vocabulario" class="section">
+        <h2>Vocabulario: Objetos Comunes y Actividades Diarias</h2>
+        <ul>
+          <li>La mesa <button class="audio-btn" onclick="playAudio('mesa')">🔊</button></li>
+          <li>El libro <button class="audio-btn" onclick="playAudio('libro')">🔊</button></li>
+          <li>El bolígrafo <button class="audio-btn" onclick="playAudio('boligrafo')">🔊</button></li>
+          <li>Desayunar <button class="audio-btn" onclick="playAudio('desayunar')">🔊</button></li>
+          <li>Leer <button class="audio-btn" onclick="playAudio('leer')">🔊</button></li>
+          <li>Estudiar <button class="audio-btn" onclick="playAudio('estudiar')">🔊</button></li>
+        </ul>
+      </section>
+      <section id="gramatica" class="section">
+        <h2>Gramática: Verbos Regulares en Presente</h2>
+        <div style="overflow-x:auto;">
+        <table style="width:100%; border-collapse:collapse; background:#fff; border-radius:10px; box-shadow:0 1px 12px #ffd6e017;">
+          <thead>
+            <tr style="background:#fff7fa;">
+              <th style="padding:0.6rem 0.4rem; border-bottom:2px solid #f8bbd0;">Verbo</th>
+              <th style="padding:0.6rem 0.4rem; border-bottom:2px solid #f8bbd0;">Conjugación (yo)</th>
+              <th style="padding:0.6rem 0.4rem; border-bottom:2px solid #f8bbd0;">Ejemplo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Estudiar</td>
+              <td>estudio</td>
+              <td>Yo estudio español.</td>
+            </tr>
+            <tr>
+              <td>Leer</td>
+              <td>leo</td>
+              <td>Yo leo un libro.</td>
+            </tr>
+            <tr>
+              <td>Desayunar</td>
+              <td>desayuno</td>
+              <td>Yo desayuno a las 8.</td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+      </section>
+      <section id="ejercicios" class="section ejercicios">
+        <h2>Ejercicios Prácticos</h2>
+        <ol>
+          <li><input type="checkbox" class="progreso-chk" data-bloque="Vocabulario"> Escucha la pronunciación de los objetos y repite en voz alta.</li>
+          <li><input type="checkbox" class="progreso-chk" data-bloque="Gramática"> Escribe 3 frases usando los verbos estudiados.</li>
+          <li><input type="checkbox" class="progreso-chk" data-bloque="Vocabulario"> Lee en voz alta el vocabulario del día.</li>
+          <li><input type="checkbox" class="progreso-chk" data-bloque="Presentación"> Graba un audio presentándote y diciendo una actividad que haces cada día.</li>
+        </ol>
+        <p><strong>Tip:</strong> ¡Practica a diario para mejorar más rápido!</p>
+      </section>
+      <section id="recursos" class="section" style="background:linear-gradient(120deg,#ffe4ec 80%,#fff7fa 100%);">
+        <h2>Recursos Adicionales</h2>
+        <ul>
+          <li><a href="https://www.spanishdict.com/" target="_blank" rel="noopener" style="color:#c75275;">Diccionario Español-Inglés</a></li>
+          <li><a href="https://conjuguemos.com/" target="_blank" rel="noopener" style="color:#c75275;">Práctica de conjugaciones</a></li>
+          <li><a href="https://www.youtube.com/results?search_query=español+para+principiantes" target="_blank" rel="noopener" style="color:#c75275;">Videos para principiantes</a></li>
+        </ul>
+      </section>
+    </main>
+  </div>
+  <footer>
+    &copy; 2025 M&amp;A Spanish Express · info@maspanishexpress.com
+  </footer>
+  <!-- ...Pega los scripts y modales igual que la versión anterior... -->
 </body>
 </html>
