@@ -19,14 +19,10 @@
       <div class="user-id" id="sidebarUserId">Tablero</div>
     </div>
     <nav class="canvas-links" id="mainMenuLinks">
-      <a href="#" data-section="inicio" class="active"><span class="icon">🏠</span><span style="font-size:0.8em;">Inicio</span></a>
+      <a href="#" data-section="login" class="active"><span class="icon">🔐</span><span style="font-size:0.8em;">Acceso</span></a>
+      <a href="#" data-section="inicio"><span class="icon">🏠</span><span style="font-size:0.8em;">Inicio</span></a>
       <a href="#" data-section="grupos"><span class="icon">👥</span><span style="font-size:0.8em;">Grupos</span></a>
       <a href="#" data-section="calendario"><span class="icon">📅</span><span style="font-size:0.8em;">Calendario</span></a>
-      <a href="#"><span class="icon">📚</span><span style="font-size:0.8em;">Cursos</span></a>
-      <a href="#"><span class="icon">📥</span><span style="font-size:0.8em;">Bandeja</span></a>
-      <a href="#"><span class="icon">🕑</span><span style="font-size:0.8em;">Historial</span></a>
-      <a href="#"><span class="icon">🔄</span><span style="font-size:0.8em;">Commons</span></a>
-      <a href="#"><span class="icon">❓</span><span style="font-size:0.8em;">Ayuda</span></a>
     </nav>
     <div class="canvas-footer"></div>
   </div>
@@ -44,19 +40,47 @@
       <a href="#">Personas</a>
       <a href="#">Configuración</a>
     </nav>
-    <!-- Botones de login/perfil: pon aquí tu lógica habitual -->
-    <button class="login-btn" id="openLoginBtn">Iniciar sesión</button>
     <div class="user-info" id="userInfo" style="display:none;">
       <img src="" alt="Avatar" class="avatar-thumb" id="userAvatarThumb" style="display:none;">
       <span id="usernameDisplay"></span>
-      <button class="profile-btn" id="profileBtn" title="Ver perfil">Perfil</button>
       <button class="logout-btn" id="logoutBtn" title="Cerrar sesión">Salir</button>
     </div>
   </header>
-  <!-- Modales: login, registro, perfil... (puedes añadirlos aquí como antes) -->
   <div class="main-canvas-content">
     <div class="canvas-sections">
-      <div class="canvas-section" id="section-inicio">
+      <div class="canvas-section" id="section-login">
+        <h2>Acceso a la plataforma</h2>
+        <div class="login-register-wrapper">
+          <div class="login-box">
+            <h3>Iniciar sesión</h3>
+            <form id="loginForm" autocomplete="off">
+              <label for="username">Usuario:</label>
+              <input type="text" id="username" required placeholder="Tu usuario o email">
+              <label for="password">Contraseña:</label>
+              <input type="password" id="password" required placeholder="Contraseña">
+              <button type="submit">Entrar</button>
+              <div id="loginError" class="form-error" style="display:none;">Usuario o contraseña incorrectos</div>
+            </form>
+          </div>
+          <div class="register-box">
+            <h3>Registrarse</h3>
+            <form id="registerForm" autocomplete="off">
+              <label for="registerNombre">Nombre completo:</label>
+              <input type="text" id="registerNombre" required placeholder="Tu nombre">
+              <label for="registerUsername">Usuario:</label>
+              <input type="text" id="registerUsername" required placeholder="Elige un usuario">
+              <label for="registerPassword">Contraseña:</label>
+              <input type="password" id="registerPassword" required placeholder="Contraseña">
+              <label for="registerAvatar">Foto de perfil (opcional):</label>
+              <input type="file" id="registerAvatar" accept="image/*">
+              <button type="submit">Registrar</button>
+              <div class="register-success" id="registerSuccess" style="display:none;">¡Registro exitoso! Ya puedes iniciar sesión.</div>
+              <div class="register-error" id="registerError" style="display:none;">Ese usuario ya existe. Elige otro.</div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="canvas-section" id="section-inicio" style="display:none;">
         <h2>Bienvenido a M&A Spanish Express</h2>
         <p>¡Explora el menú lateral para acceder a Grupos, tu Calendario y mucho más!</p>
       </div>
@@ -91,7 +115,7 @@
             <input type="text" id="eventDesc" placeholder="Descripción (opcional)" maxlength="60">
             <button type="submit">Agregar evento</button>
           </form>
-          <h4 style="color:#b05c79;margin:0.7em 0 0.2em 0;">Eventos del mes</h4>
+          <h4 class="cal-events-title">Eventos del mes</h4>
           <ul class="calendar-events-list" id="calendarEventsList"></ul>
         </div>
       </div>
