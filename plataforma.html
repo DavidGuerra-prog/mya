@@ -283,104 +283,136 @@
     }
     .canvas-section .btn:hover { background: #f8bbd0; }
     .ejercicios label { margin-left: 0.8em; }
-    /* Modales */
-    .modal-bg, .profile-modal-bg {
-      display: none;
-      position: fixed;
-      z-index: 100;
-      left: 0; top: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.25);
+
+    /* Grupos */
+    .grupo-card {
+      background: #fff6fc;
+      border: 1.2px solid #fecaca;
+      border-radius: 14px;
+      margin-bottom: 0.7em;
+      padding: 0.8em 1em;
     }
-    .modal, .profile-modal {
+    .grupo-titulo {
+      font-size: 1.15em;
+      font-weight: bold;
+      color: #c75275;
+      margin-bottom: 0.2em;
+    }
+    .grupo-desc {
+      font-size: 0.98em;
+      color: #865f6f;
+      margin-bottom: 0.1em;
+    }
+
+    /* Calendario */
+    .calendar-wrapper {
       background: #fff;
-      border-radius: var(--radius);
-      box-shadow: 0 4px 24px #fea5ad13;
-      max-width: 370px;
-      width: 95%;
-      margin: 5% auto 0 auto;
-      padding: 2rem 1.5rem 1.5rem 1.5rem;
-      position: relative;
-      z-index: 200;
-      animation: fadeIn 0.7s;
+      border-radius: 12px;
+      box-shadow: 0 2px 16px #fea5ad13;
+      padding: 1em 1.2em;
+      margin-bottom: 1.1em;
+      border: 1.5px solid #ffe4ec;
     }
-    .profile-modal {
-      max-width: 380px;
+    .calendar-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1em;
     }
-    .modal h2, .profile-modal h2 {
-      margin-top: 0;
-      color: var(--primary-color);
+    .calendar-header button {
+      background: var(--highlight);
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      padding: 0.3em 1em;
+      font-size: 1.1em;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.15s;
     }
-    .modal label, .profile-modal label {
-      display: block;
-      margin-bottom: 0.25rem;
-      font-weight: 500;
-    }
-    .modal input[type="text"], .modal input[type="password"],
-    .profile-modal input[type="text"], .profile-modal input[type="password"] {
+    .calendar-header button:hover { background: #d68fa2;}
+    .calendar-table {
       width: 100%;
-      padding: 0.5rem;
-      margin-bottom: 1rem;
-      font-size: 1rem;
+      border-collapse: collapse;
+      margin-bottom: 1em;
+    }
+    .calendar-table th {
+      color: #c75275;
+      background: #ffe4ec;
+      padding: 0.4em;
+      font-size: 1em;
+      border-radius: 8px;
+    }
+    .calendar-table td {
+      text-align: center;
+      padding: 0.49em 0.1em;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: background 0.12s;
+      font-size: 1em;
+      position: relative;
+      background: #fff8fa;
+    }
+    .calendar-table td.today {
+      background: #fecaca;
+      color: #fff;
+      font-weight: bold;
+    }
+    .calendar-table td.event-day {
+      background: #ffe4ec;
+      color: #b05c79;
+      font-weight: bold;
+    }
+    .calendar-table td:hover {
+      background: #f8bbd0;
+      color: #fff;
+    }
+    .calendar-event-form {
+      margin-bottom: 1.1em;
+      display: flex;
+      gap: 0.5em;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .calendar-event-form input[type="text"] {
+      padding: 0.4em;
       border-radius: 5px;
       border: 1px solid #fcc;
       background: #fff8fa;
+      font-size: 1em;
     }
-    .modal .modal-actions, .profile-modal .modal-actions {
-      text-align: right;
+    .calendar-event-form input[type="date"] {
+      padding: 0.4em;
+      border-radius: 5px;
+      border: 1px solid #fcc;
+      background: #fff8fa;
+      font-size: 1em;
     }
-    .modal .modal-actions button, .profile-modal .modal-actions button {
-      margin-left: 0.5rem;
-    }
-    .modal .modal-close, .profile-modal .modal-close {
-      position: absolute;
-      top: 0.8rem;
-      right: 0.8rem;
-      background: transparent;
+    .calendar-event-form button {
+      background: var(--primary-color);
+      color: #fff;
       border: none;
-      font-size: 1.2rem;
-      color: #888;
+      border-radius: 6px;
+      padding: 0.45em 1em;
+      font-size: 1em;
+      font-weight: 600;
       cursor: pointer;
+      transition: background 0.17s;
     }
-    .modal .modal-link {
-      color: var(--primary-color);
-      text-decoration: underline;
-      cursor: pointer;
-      font-size: 0.95em;
-      margin-left: 0.1em;
+    .calendar-event-form button:hover { background: #f8bbd0; }
+    .calendar-events-list {
+      padding-left: 1em;
+      margin-top: 0.5em;
     }
-    .modal .modal-link:hover {
-      color: #d68fa2;
+    .calendar-events-list li {
+      margin-bottom: 0.2em;
+      color: #49505a;
+      font-size: 0.98em;
     }
-    .register-success {
-      color: #2e7d32;
-      margin-top: 0.5rem;
-      font-size: 0.95em;
-      text-align: center;
+    .calendar-events-list .event-date {
+      color: #c75275;
+      font-weight: 600;
     }
-    .register-error {
-      color: #e53935;
-      margin-top: 0.5rem;
-      font-size: 0.95em;
-      text-align: center;
-    }
-    .profile-avatar {
-      display: flex;
-      align-items: center;
-      gap: 1em;
-      margin-bottom: 1em;
-    }
-    .profile-avatar img {
-      width: 70px;
-      height: 70px;
-      object-fit: cover;
-      border-radius: 50%;
-      box-shadow: 0 2px 8px #fea5ad28;
-      border: 2px solid #ffe4ec;
-      background: #ffe4ec;
-    }
-    .profile-modal input[type="file"] { margin-top: 0.3em; }
-    .profile-modal .profile-list { margin: 0.7em 0 0 0.2em; color: #333; }
-    .profile-modal .profile-list li { margin-bottom: .3em; font-size: 1em; }
     @media (max-width: 950px) {
       .canvas-header, .main-canvas-content { margin-left: 0; }
       .sidebar-canvas { position:static;width:100vw;flex-direction: row;height:auto;padding:1em 0; }
@@ -420,11 +452,11 @@
       <div class="user-label" id="sidebarUserLabel">Cuenta</div>
       <div class="user-id" id="sidebarUserId">Tablero</div>
     </div>
-    <nav class="canvas-links">
-      <a href="#"><span class="icon">🏠</span><span style="font-size:0.8em;">Inicio</span></a>
+    <nav class="canvas-links" id="mainMenuLinks">
+      <a href="#" data-section="inicio" class="active"><span class="icon">🏠</span><span style="font-size:0.8em;">Inicio</span></a>
+      <a href="#" data-section="grupos"><span class="icon">👥</span><span style="font-size:0.8em;">Grupos</span></a>
+      <a href="#" data-section="calendario"><span class="icon">📅</span><span style="font-size:0.8em;">Calendario</span></a>
       <a href="#"><span class="icon">📚</span><span style="font-size:0.8em;">Cursos</span></a>
-      <a href="#"><span class="icon">👥</span><span style="font-size:0.8em;">Grupos</span></a>
-      <a href="#"><span class="icon">📅</span><span style="font-size:0.8em;">Calendario</span></a>
       <a href="#"><span class="icon">📥</span><span style="font-size:0.8em;">Bandeja</span></a>
       <a href="#"><span class="icon">🕑</span><span style="font-size:0.8em;">Historial</span></a>
       <a href="#"><span class="icon">🔄</span><span style="font-size:0.8em;">Commons</span></a>
@@ -529,7 +561,8 @@
   </div>
   <div class="main-canvas-content">
     <div class="canvas-sections">
-      <div class="canvas-section">
+      <!-- SECCION INICIO -->
+      <div class="canvas-section" id="section-inicio">
         <h2>Página de Inicio</h2>
         <ul>
           <li><a href="#">Anuncios</a></li>
@@ -550,10 +583,45 @@
           <li><a href="#">Configuraciones <span class="icon-eye">🙈</span></a></li>
         </ul>
       </div>
-      <div class="canvas-section">
-        <h2>Bienvenida</h2>
-        <p>¡Hola! Esta es tu plataforma de aprendizaje tipo Canvas, pero con toda la personalidad y colores de <strong>M&amp;A Spanish Express</strong>. Accede a tus cursos, recursos y más desde el menú lateral.</p>
+      <!-- SECCION GRUPOS -->
+      <div class="canvas-section" id="section-grupos" style="display:none;">
+        <h2>Grupos</h2>
+        <form id="grupoForm" style="margin-bottom:1.2em;">
+          <input type="text" id="grupoNombre" required placeholder="Nombre del grupo" style="margin-bottom:0.5em;">
+          <input type="text" id="grupoDesc" required placeholder="Descripción breve" style="margin-bottom:0.5em;">
+          <button type="submit" class="btn">Crear grupo</button>
+        </form>
+        <h3 style="margin:1em 0 0.3em 0;color:#d68fa2;">Tus grupos</h3>
+        <div id="gruposLista"></div>
       </div>
+      <!-- SECCION CALENDARIO -->
+      <div class="canvas-section" id="section-calendario" style="display:none;">
+        <h2>Calendario</h2>
+        <div class="calendar-wrapper">
+          <div class="calendar-header">
+            <button id="prevMonthBtn">&lt;</button>
+            <span id="calendarMonth"></span>
+            <button id="nextMonthBtn">&gt;</button>
+          </div>
+          <table class="calendar-table">
+            <thead>
+              <tr>
+                <th>Lun</th><th>Mar</th><th>Mié</th><th>Jue</th><th>Vie</th><th>Sáb</th><th>Dom</th>
+              </tr>
+            </thead>
+            <tbody id="calendarBody"></tbody>
+          </table>
+          <form class="calendar-event-form" id="calendarEventForm">
+            <input type="date" id="eventDate" required>
+            <input type="text" id="eventTitle" required placeholder="Título del evento" maxlength="32">
+            <input type="text" id="eventDesc" placeholder="Descripción (opcional)" maxlength="60">
+            <button type="submit">Agregar evento</button>
+          </form>
+          <h4 style="color:#b05c79;margin:0.7em 0 0.2em 0;">Eventos del mes</h4>
+          <ul class="calendar-events-list" id="calendarEventsList"></ul>
+        </div>
+      </div>
+      <!-- SECCION EJERCICIOS -->
       <div class="canvas-section ejercicios">
         <h2>Ejercicios prácticos</h2>
         <ol>
@@ -573,7 +641,163 @@
     &copy; 2025 M&amp;A Spanish Express · info@maspanishexpress.com
   </footer>
   <script>
-    // --------- GESTIÓN DE USUARIOS Y SESIÓN (igual que versiones anteriores) ---------
+    // Navegación de secciones
+    const menuLinks = document.querySelectorAll('#mainMenuLinks a[data-section]');
+    const sections = {
+      inicio: document.getElementById('section-inicio'),
+      grupos: document.getElementById('section-grupos'),
+      calendario: document.getElementById('section-calendario')
+    };
+    menuLinks.forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        menuLinks.forEach(l => l.classList.remove('active'));
+        this.classList.add('active');
+        Object.keys(sections).forEach(key => sections[key].style.display = 'none');
+        const section = this.getAttribute('data-section');
+        if (sections[section]) sections[section].style.display = '';
+      });
+    });
+    // --------- GRUPOS ---------
+    function gruposKey() {
+      const u = localStorage.getItem("loggedUser") || "demo";
+      return "grupos_" + u;
+    }
+    function cargarGrupos() {
+      let g = localStorage.getItem(gruposKey());
+      return g ? JSON.parse(g) : [];
+    }
+    function guardarGrupos(grupos) {
+      localStorage.setItem(gruposKey(), JSON.stringify(grupos));
+    }
+    function renderGrupos() {
+      const listaDiv = document.getElementById('gruposLista');
+      const grupos = cargarGrupos();
+      listaDiv.innerHTML = "";
+      if (grupos.length === 0) {
+        listaDiv.innerHTML = "<p style='color:#b05c79'>No has creado grupos.</p>";
+        return;
+      }
+      grupos.forEach((g, idx) => {
+        const d = document.createElement('div');
+        d.className = "grupo-card";
+        d.innerHTML = `<div class="grupo-titulo">${g.nombre}</div>
+        <div class="grupo-desc">${g.descripcion}</div>
+        <button class="btn" style="background:#f8bbd0;font-size:0.9em;" onclick="eliminarGrupo(${idx})">Eliminar</button>`;
+        listaDiv.appendChild(d);
+      });
+    }
+    window.eliminarGrupo = function(idx) {
+      let grupos = cargarGrupos();
+      grupos.splice(idx,1);
+      guardarGrupos(grupos);
+      renderGrupos();
+    }
+    document.getElementById('grupoForm').onsubmit = function(e) {
+      e.preventDefault();
+      const nombre = document.getElementById('grupoNombre').value.trim();
+      const descripcion = document.getElementById('grupoDesc').value.trim();
+      if (!nombre) return alert("El grupo debe tener nombre");
+      let grupos = cargarGrupos();
+      grupos.push({nombre, descripcion});
+      guardarGrupos(grupos);
+      this.reset();
+      renderGrupos();
+    };
+    renderGrupos();
+
+    // --------- CALENDARIO ---------
+    function calendarKey() {
+      const u = localStorage.getItem("loggedUser") || "demo";
+      return "eventosCalendar_" + u;
+    }
+    function cargarEventos() {
+      let e = localStorage.getItem(calendarKey());
+      return e ? JSON.parse(e) : [];
+    }
+    function guardarEventos(eventos) {
+      localStorage.setItem(calendarKey(), JSON.stringify(eventos));
+    }
+    function renderCalendario(monthOffset = 0) {
+      let today = new Date();
+      let currentMonth = today.getMonth();
+      let currentYear = today.getFullYear();
+      // Mes movido por navegación
+      if (typeof renderCalendario.mOffset === "number") {
+        renderCalendario.mOffset += monthOffset;
+      } else {
+        renderCalendario.mOffset = 0;
+      }
+      let showMonth = new Date(currentYear, currentMonth + renderCalendario.mOffset, 1);
+      let year = showMonth.getFullYear();
+      let month = showMonth.getMonth();
+      // Título
+      const meses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+      document.getElementById('calendarMonth').textContent = meses[month] + " " + year;
+      // Cuerpo calendario
+      let firstDay = new Date(year, month, 1);
+      let startDay = (firstDay.getDay() || 7)-1; // Lunes=0
+      let daysInMonth = new Date(year, month+1, 0).getDate();
+      let tbody = document.getElementById('calendarBody');
+      tbody.innerHTML = "";
+      let row = document.createElement('tr');
+      for(let i=0; i<startDay; i++) row.appendChild(document.createElement('td'));
+      let eventos = cargarEventos();
+      for(let d=1; d<=daysInMonth; d++) {
+        if ((row.children.length) % 7 === 0 && d !== 1) {
+          tbody.appendChild(row);
+          row = document.createElement('tr');
+        }
+        let td = document.createElement('td');
+        let fechaISO = year + "-" + String(month+1).padStart(2,'0') + "-" + String(d).padStart(2,'0');
+        td.textContent = d;
+        // Hoy
+        if (year === today.getFullYear() && month === today.getMonth() && d === today.getDate()) td.classList.add('today');
+        // Evento?
+        if (eventos.some(ev => ev.fecha === fechaISO)) td.classList.add('event-day');
+        // Agregar evento al dar click
+        td.onclick = function() {
+          document.getElementById('eventDate').value = fechaISO;
+          document.getElementById('eventTitle').focus();
+        }
+        row.appendChild(td);
+      }
+      while (row.children.length<7) row.appendChild(document.createElement('td'));
+      tbody.appendChild(row);
+      // Listar eventos del mes
+      let eventosList = document.getElementById('calendarEventsList');
+      eventosList.innerHTML = "";
+      eventos.filter(ev=>ev.fecha.slice(0,7)===fechaISO.slice(0,7))
+        .sort((a,b)=>a.fecha.localeCompare(b.fecha))
+        .forEach(ev=>{
+          let li = document.createElement('li');
+          li.innerHTML = `<span class="event-date">${ev.fecha}</span>: <b>${ev.titulo}</b> ${ev.descripcion?("("+ev.descripcion+")"):""}
+          <button style="font-size:0.9em;background:#f8bbd0;border-radius:5px;border:none;margin-left:0.6em;color:#fff;cursor:pointer;" onclick="eliminarEvento('${ev.fecha}','${ev.titulo.replace(/'/g,"")}')">Eliminar</button>`;
+          eventosList.appendChild(li);
+        });
+    }
+    window.eliminarEvento = function(fecha,titulo) {
+      let eventos = cargarEventos();
+      guardarEventos(eventos.filter(ev=>!(ev.fecha===fecha&&ev.titulo===titulo)));
+      renderCalendario(0);
+    }
+    document.getElementById('prevMonthBtn').onclick = ()=>renderCalendario(-1);
+    document.getElementById('nextMonthBtn').onclick = ()=>renderCalendario(1);
+    document.getElementById('calendarEventForm').onsubmit = function(e){
+      e.preventDefault();
+      let fecha = document.getElementById('eventDate').value;
+      let titulo = document.getElementById('eventTitle').value.trim();
+      let descripcion = document.getElementById('eventDesc').value.trim();
+      if (!fecha || !titulo) return alert("El evento debe tener fecha y título");
+      let eventos = cargarEventos();
+      eventos.push({fecha, titulo, descripcion});
+      guardarEventos(eventos);
+      this.reset();
+      renderCalendario(0);
+    };
+    renderCalendario();
+
+    // --------- GESTIÓN DE USUARIOS Y SESIÓN ---------
     function getStoredUsers() {
       let u = localStorage.getItem('appUsers');
       try { return u ? JSON.parse(u) : []; } catch { return []; }
@@ -700,6 +924,8 @@
         sidebarAvatarThumb.src = userAvatarOrDefault(user);
         sidebarAvatarThumb.style.display = "block";
         sidebarAvatarCircle.style.display = "none";
+        renderGrupos();
+        renderCalendario(0);
       } else {
         loginError.style.display = "block";
       }
@@ -753,6 +979,8 @@
       sidebarUserId.textContent = "Tablero";
       sidebarAvatarThumb.style.display = "none";
       sidebarAvatarCircle.style.display = "block";
+      renderGrupos();
+      renderCalendario(0);
     };
     // Mantener sesión al recargar
     window.onload = function() {
@@ -775,6 +1003,8 @@
           sidebarAvatarCircle.style.display = "none";
         }
       }
+      renderGrupos();
+      renderCalendario(0);
     };
     // Progreso por checkboxes
     progresoChecks.forEach(chk => {
