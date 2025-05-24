@@ -1,25 +1,27 @@
-// Navegación de secciones
+// --- NAVEGACIÓN DE SECCIONES ---
 const menuLinks = document.querySelectorAll('#mainMenuLinks a[data-section]');
 const sections = {
   inicio: document.getElementById('section-inicio'),
   grupos: document.getElementById('section-grupos'),
   calendario: document.getElementById('section-calendario')
 };
+function showSection(section) {
+  Object.keys(sections).forEach(key => sections[key].style.display = 'none');
+  if (sections[section]) sections[section].style.display = '';
+  if(section === 'grupos') renderGrupos();
+  if(section === 'calendario') renderCalendario(0);
+}
 menuLinks.forEach(link => {
   link.addEventListener('click', function(e) {
     e.preventDefault();
     menuLinks.forEach(l => l.classList.remove('active'));
     this.classList.add('active');
-    Object.keys(sections).forEach(key => sections[key].style.display = 'none');
-    const section = this.getAttribute('data-section');
-    if (sections[section]) {
-      sections[section].style.display = '';
-      if(section === 'grupos') renderGrupos();
-      if(section === 'calendario') renderCalendario(0);
-    }
+    showSection(this.getAttribute('data-section'));
   });
 });
-// ------ GRUPOS ------
+showSection('inicio');
+
+// --- GRUPOS ---
 function gruposKey() {
   const u = localStorage.getItem("loggedUser") || "demo";
   return "grupos_" + u;
@@ -67,7 +69,7 @@ document.getElementById('grupoForm').onsubmit = function(e) {
 };
 renderGrupos();
 
-// ------ CALENDARIO ------
+// --- CALENDARIO ---
 function calendarKey() {
   const u = localStorage.getItem("loggedUser") || "demo";
   return "eventosCalendar_" + u;
@@ -151,8 +153,3 @@ document.getElementById('calendarEventForm').onsubmit = function(e){
   renderCalendario(0);
 };
 renderCalendario();
-
-// ------ LOGIN, REGISTRO, PERFIL: LÓGICA BÁSICA (puedes adaptar el resto de tu JS aquí) ------
-// ... aquí iría todo tu sistema de usuarios, modales, etc. ...
-// Por espacio, te indico que puedes copiar la lógica de tu plataforma anterior aquí.
-// Asegúrate de que los modales usan style.display = "block"/"none" para mostrar/ocultar.
