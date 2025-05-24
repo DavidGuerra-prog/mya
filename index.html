@@ -3,205 +3,174 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>M&A Spanish Express - Aprende Español Online</title>
-  <meta name="description" content="Descubre quiénes somos, nuestra misión, visión y valores en M&A Spanish Express. Aprende español con nosotros.">
-  <meta name="author" content="M&A Spanish Express">
+  <title>Plataforma Estudiantes - M&A Spanish Express</title>
   <link rel="icon" href="favicon.ico">
-  <style>
-    :root {
-      --primary-color: #fea5ad;
-      --secondary-color: #fef6f8;
-      --accent-color: #fff8e1;
-      --highlight: #d68fa2;
-      --card-bg: #fff;
-      --radius: 16px;
-      --shadow: 0 6px 32px rgba(254, 165, 173, 0.10);
-      --gradient: linear-gradient(90deg, #fea5ad 0%, #ffd6e0 100%);
-    }
-    body {
-      font-family: 'Segoe UI', Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background: var(--secondary-color);
-      color: #222;
-    }
-    header {
-      background: var(--gradient);
-      color: #fff;
-      padding: 2.5rem 1rem 1.5rem 1rem;
-      text-align: center;
-      border-radius: 0 0 var(--radius) var(--radius);
-      box-shadow: var(--shadow);
-    }
-    h1 {
-      font-size: 2.5rem;
-      margin: 0;
-      letter-spacing: 1px;
-      font-family: 'Segoe UI', Arial, sans-serif;
-      text-shadow: 0 2px 12px #ffd6e0bb;
-    }
-    .subtitle {
-      font-size: 1.3rem;
-      margin-bottom: 1.2rem;
-      font-weight: 400;
-      letter-spacing: 0.5px;
-      color: #b05c79;
-      text-shadow: 0 1px 8px #ffd6e0a8;
-    }
-    .about-section {
-      max-width: 900px;
-      margin: 2.5rem auto 0 auto;
-      background: var(--card-bg);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 2.5rem 2rem;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 2rem;
-      align-items: flex-start;
-    }
-    .about-img {
-      flex: 1 1 220px;
-      min-width: 220px;
-      max-width: 320px;
-      border-radius: var(--radius);
-      box-shadow: 0 2px 24px #fea5ad33;
-      object-fit: cover;
-      margin-bottom: 1rem;
-    }
-    .about-content {
-      flex: 2 1 340px;
-      min-width: 280px;
-    }
-    .about-content h2 {
-      margin-top: 0;
-      color: var(--primary-color);
-      font-size: 1.7rem;
-      margin-bottom: 0.7rem;
-      letter-spacing: 0.5px;
-    }
-    .about-cards {
-      display: flex;
-      gap: 1.2rem;
-      margin-top: 1.5rem;
-      flex-wrap: wrap;
-    }
-    .about-card {
-      flex: 1 1 220px;
-      background: #fff3f6;
-      border-radius: 12px;
-      padding: 1.2rem 1rem;
-      box-shadow: 0 2px 12px #ffd6e017;
-      min-width: 180px;
-    }
-    .about-card h3 {
-      margin-top: 0;
-      color: var(--highlight);
-      font-size: 1.1rem;
-    }
-    .about-card p {
-      margin-bottom: 0;
-      font-size: 1em;
-      color: #444;
-    }
-    .about-actions {
-      margin-top: 2.5rem;
-      text-align: center;
-    }
-    .main-btn {
-      background: var(--gradient);
-      color: #fff;
-      border: none;
-      font-size: 1.15rem;
-      border-radius: 30px;
-      padding: 0.75em 2.2em;
-      box-shadow: 0 2px 18px #fea5ad34;
-      cursor: pointer;
-      text-decoration: none;
-      transition: background 0.2s, transform 0.2s;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      margin: 0 0.5em;
-    }
-    .main-btn:hover {
-      background: #fea5ad;
-      color: #fff;
-      transform: translateY(-2px) scale(1.03);
-    }
-    footer {
-      background: #fff3f6;
-      margin-top: 3rem;
-      padding: 1.3rem 0;
-      text-align: center;
-      font-size: 1rem;
-      color: #d68fa2;
-      border-radius: var(--radius) var(--radius) 0 0;
-      box-shadow: 0 -2px 12px #ffd6e013;
-      letter-spacing: 0.2px;
-    }
-    @media (max-width: 800px) {
-      .about-section {
-        flex-direction: column;
-        padding: 2rem 1rem;
-      }
-      .about-content {
-        min-width: unset;
-      }
-    }
-    @media (max-width: 500px) {
-      .about-section {
-        padding: 1.2rem 0.5rem;
-      }
-      .about-img {
-        min-width: 100px;
-        max-width: 100%;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>
-    <h1>M&amp;A Spanish Express</h1>
-    <div class="subtitle">¡Tu portal para aprender español de forma moderna, flexible y divertida!</div>
+  <div class="sidebar-canvas">
+    <div class="logo">
+      <img src="https://i.imgur.com/2Jg2gCw.png" alt="M&A Spanish Express" />
+    </div>
+    <div class="user" id="sidebarUser">
+      <img src="" id="sidebarAvatarThumb" style="display:none;" />
+      <div class="user-circle" id="sidebarAvatarCircle"></div>
+      <div class="user-label" id="sidebarUserLabel">Cuenta</div>
+      <div class="user-id" id="sidebarUserId">Tablero</div>
+    </div>
+    <nav class="canvas-links" id="mainMenuLinks">
+      <a href="#" data-section="inicio" class="active"><span class="icon">🏠</span><span style="font-size:0.8em;">Inicio</span></a>
+      <a href="#" data-section="grupos"><span class="icon">👥</span><span style="font-size:0.8em;">Grupos</span></a>
+      <a href="#" data-section="calendario"><span class="icon">📅</span><span style="font-size:0.8em;">Calendario</span></a>
+      <a href="#"><span class="icon">📚</span><span style="font-size:0.8em;">Cursos</span></a>
+      <a href="#"><span class="icon">📥</span><span style="font-size:0.8em;">Bandeja</span></a>
+      <a href="#"><span class="icon">🕑</span><span style="font-size:0.8em;">Historial</span></a>
+      <a href="#"><span class="icon">🔄</span><span style="font-size:0.8em;">Commons</span></a>
+      <a href="#"><span class="icon">❓</span><span style="font-size:0.8em;">Ayuda</span></a>
+    </nav>
+    <div class="canvas-footer"></div>
+  </div>
+  <header class="canvas-header">
+    <h1>M&A Spanish Express</h1>
+    <nav class="canvas-top-links">
+      <a href="#">Anuncios</a>
+      <a href="#">Guía Didáctica</a>
+      <a href="#">Módulos</a>
+      <a href="#">Tareas</a>
+      <a href="#">Foros</a>
+      <a href="#">Evaluaciones</a>
+      <a href="#">Calificaciones</a>
+      <a href="#">Archivos</a>
+      <a href="#">Personas</a>
+      <a href="#">Configuración</a>
+    </nav>
+    <button class="login-btn" id="openLoginBtn">Iniciar sesión</button>
+    <div class="user-info" id="userInfo" style="display:none;">
+      <img src="" alt="Avatar" class="avatar-thumb" id="userAvatarThumb" style="display:none;">
+      <span id="usernameDisplay"></span>
+      <button class="profile-btn" id="profileBtn" title="Ver perfil">Perfil</button>
+      <button class="logout-btn" id="logoutBtn" title="Cerrar sesión">Salir</button>
+    </div>
   </header>
-
-  <div class="about-section">
-    <img src="https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=320&q=80"
-      class="about-img" alt="Estudiantes de español" />
-    <div class="about-content">
-      <h2>¿Quiénes somos?</h2>
-      <p>
-        En <b>M&amp;A Spanish Express</b> nacimos con la pasión de hacer el aprendizaje del español accesible y entretenido para todos,
-        sin importar tu ubicación. Somos un equipo de profesores, desarrolladores y creativos unidos por el amor a la enseñanza y la cultura latinoamericana.
-      </p>
-      <div class="about-cards">
-        <div class="about-card">
-          <h3>¿Cómo surgimos?</h3>
-          <p>
-            Empezamos en 2024 como una pequeña comunidad en línea, y gracias a la confianza de nuestros estudiantes de todo el mundo, hemos crecido como una plataforma interactiva, flexible y humana.
-          </p>
+  <!-- Modales -->
+  <div class="modal-bg" id="loginModalBg">
+    <div class="modal">
+      <button class="modal-close" id="closeLoginBtn" title="Cerrar">&times;</button>
+      <h2>Iniciar sesión</h2>
+      <form id="loginForm" autocomplete="off">
+        <label for="username">Usuario:</label>
+        <input type="text" id="username" required placeholder="Tu usuario o email">
+        <label for="password">Contraseña:</label>
+        <input type="password" id="password" required placeholder="Contraseña">
+        <div class="modal-actions">
+          <button type="button" id="cancelLoginBtn">Cancelar</button>
+          <button type="submit">Entrar</button>
         </div>
-        <div class="about-card">
-          <h3>Misión</h3>
-          <p>
-            Acercar el idioma español y la cultura hispana al mundo, brindando recursos y experiencias de aprendizaje personalizadas y accesibles para todos.
-          </p>
-        </div>
-        <div class="about-card">
-          <h3>Visión</h3>
-          <p>
-            Ser la comunidad digital líder en enseñanza de español, innovando constantemente y promoviendo el intercambio cultural.
-          </p>
-        </div>
-      </div>
-      <div class="about-actions">
-        <a class="main-btn" href="plataforma.html">Ir a la Plataforma</a>
+      </form>
+      <div id="loginError" class="form-error" style="display:none;">Usuario o contraseña incorrectos</div>
+      <div style="margin-top:0.5rem; text-align:center;">
+        ¿No tienes cuenta? <span class="modal-link" id="goToRegister">Regístrate aquí</span>
       </div>
     </div>
   </div>
-
+  <div class="modal-bg" id="registerModalBg">
+    <div class="modal">
+      <button class="modal-close" id="closeRegisterBtn" title="Cerrar">&times;</button>
+      <h2>Registrarse</h2>
+      <form id="registerForm" autocomplete="off">
+        <label for="registerNombre">Nombre completo:</label>
+        <input type="text" id="registerNombre" required placeholder="Tu nombre">
+        <label for="registerUsername">Usuario:</label>
+        <input type="text" id="registerUsername" required placeholder="Elige un usuario">
+        <label for="registerPassword">Contraseña:</label>
+        <input type="password" id="registerPassword" required placeholder="Contraseña">
+        <label for="registerAvatar">Foto de perfil (opcional):</label>
+        <input type="file" id="registerAvatar" accept="image/*">
+        <div class="modal-actions">
+          <button type="button" id="cancelRegisterBtn">Cancelar</button>
+          <button type="submit">Registrar</button>
+        </div>
+      </form>
+      <div class="register-success" id="registerSuccess" style="display:none;">¡Registro exitoso! Ya puedes iniciar sesión.</div>
+      <div class="register-error" id="registerError" style="display:none;">Ese usuario ya existe. Elige otro.</div>
+      <div style="margin-top:0.5rem; text-align:center;">
+        ¿Ya tienes cuenta? <span class="modal-link" id="goToLogin">Inicia sesión</span>
+      </div>
+    </div>
+  </div>
+  <div class="profile-modal-bg" id="profileModalBg">
+    <div class="profile-modal">
+      <button class="modal-close" id="closeProfileBtn" title="Cerrar">&times;</button>
+      <h2>Mi Perfil</h2>
+      <form id="profileForm">
+        <div class="profile-avatar">
+          <img src="" id="profileAvatarImg" alt="Avatar de usuario">
+          <div>
+            <label for="profileAvatarInput">Cambiar foto de perfil:</label>
+            <input type="file" id="profileAvatarInput" accept="image/*">
+          </div>
+        </div>
+        <label>Nombre:</label>
+        <input type="text" id="profileNombreInput" required>
+        <label>Usuario:</label>
+        <input type="text" id="profileUsernameInput" required disabled>
+        <label>Nueva contraseña:</label>
+        <input type="password" id="profilePasswordInput" placeholder="Opcional">
+        <div class="modal-actions">
+          <button type="button" id="closeProfileBtn2">Cerrar</button>
+          <button type="submit">Guardar cambios</button>
+        </div>
+      </form>
+      <label>Progreso en ejercicios:</label>
+      <ul id="profileProgreso" class="profile-list"></ul>
+    </div>
+  </div>
+  <div class="main-canvas-content">
+    <div class="canvas-sections">
+      <div class="canvas-section" id="section-inicio">
+        <h2>Bienvenido a M&A Spanish Express</h2>
+        <p>¡Explora el menú lateral para acceder a Grupos, tu Calendario y mucho más!</p>
+      </div>
+      <div class="canvas-section" id="section-grupos" style="display:none;">
+        <h2>Grupos</h2>
+        <form id="grupoForm" class="grupo-form">
+          <input type="text" id="grupoNombre" required placeholder="Nombre del grupo">
+          <input type="text" id="grupoDesc" required placeholder="Descripción breve">
+          <button type="submit" class="btn">Crear grupo</button>
+        </form>
+        <div id="gruposLista"></div>
+      </div>
+      <div class="canvas-section" id="section-calendario" style="display:none;">
+        <h2>Calendario</h2>
+        <div class="calendar-wrapper">
+          <div class="calendar-header">
+            <button id="prevMonthBtn">&lt;</button>
+            <span id="calendarMonth"></span>
+            <button id="nextMonthBtn">&gt;</button>
+          </div>
+          <table class="calendar-table">
+            <thead>
+              <tr>
+                <th>Lun</th><th>Mar</th><th>Mié</th><th>Jue</th><th>Vie</th><th>Sáb</th><th>Dom</th>
+              </tr>
+            </thead>
+            <tbody id="calendarBody"></tbody>
+          </table>
+          <form class="calendar-event-form" id="calendarEventForm">
+            <input type="date" id="eventDate" required>
+            <input type="text" id="eventTitle" required placeholder="Título del evento" maxlength="32">
+            <input type="text" id="eventDesc" placeholder="Descripción (opcional)" maxlength="60">
+            <button type="submit">Agregar evento</button>
+          </form>
+          <h4 style="color:#b05c79;margin:0.7em 0 0.2em 0;">Eventos del mes</h4>
+          <ul class="calendar-events-list" id="calendarEventsList"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
   <footer>
-    &copy; 2025 M&amp;A Spanish Express · info@maspanishexpress.com
+    &copy; 2025 M&A Spanish Express · info@maspanishexpress.com
   </footer>
+  <script src="app.js"></script>
 </body>
 </html>
