@@ -1,25 +1,171 @@
-// --- NAVEGACIÓN DE SECCIONES ---
+// --- Navegación de secciones y control acceso ---
 const menuLinks = document.querySelectorAll('#mainMenuLinks a[data-section]');
 const sections = {
+  login: document.getElementById('section-login'),
   inicio: document.getElementById('section-inicio'),
   grupos: document.getElementById('section-grupos'),
   calendario: document.getElementById('section-calendario')
 };
-function showSection(section) {
+let loggedUser = localStorage.getItem("loggedUser") || null;
+
+function mostrarSection(sectionKey) {
   Object.keys(sections).forEach(key => sections[key].style.display = 'none');
-  if (sections[section]) sections[section].style.display = '';
-  if(section === 'grupos') renderGrupos();
-  if(section === 'calendario') renderCalendario(0);
+  if (sections[sectionKey]) sections[sectionKey].style.display = '';
 }
+
+// Control navegación
 menuLinks.forEach(link => {
   link.addEventListener('click', function(e) {
     e.preventDefault();
+    const seccion = this.getAttribute('data-section');
+    if(seccion !== 'login' && !loggedUser) {
+      menuLinks.forEach(l => l.classList.remove('active'));
+      document.querySelector('[data-section="login"]').classList.add('active');
+      mostrarSection('login');
+      return;
+    }
     menuLinks.forEach(l => l.classList.remove('active'));
     this.classList.add('active');
-    showSection(this.getAttribute('data-section'));
+    mostrarSection(seccion);
+    if(seccion === 'grupos') renderGrupos();
+    if(seccion === 'calendario') renderCalendario(0);
   });
 });
-showSection('inicio');
+
+// --- Login/Registro ---
+function getStoredUsers() {
+  let u = localStorage.getItem('appUsers');
+  try { return u ? JSON.parse(u) : []; } catch { return []; }
+}
+function setStoredUsers(users) {
+  localStorage.setItem('appUsers', JSON.stringify(users));
+}
+if(!localStorage.getItem('appUsers')) {
+  setStoredUsers([
+    { username: 'alumno1', password: '1234', nombre: 'María González', avatar: "" },
+    { username: 'alumno2', password: 'abcd', nombre: 'Juan Pérez', avatar: "" }
+  ]);
+}
+function userAvatarOrDefault(user) {
+  return user && user.avatar ? user.avatar : "https://ui-avatars.com/api/?name=" + encodeURIComponent(user.nombre || user.username || "Estudiante") + "&background=476072&color=fff&rounded=true&size=128";
+}
+const loginForm = document.getElementById('loginForm');
+const loginError = document.getElementById('loginError');
+const registerForm = document.getElementById('registerForm');
+const registerSuccess = document.getElementById('registerSuccess');
+const registerError = document.getElementById('registerError');
+const registerAvatar = document.getElementById('registerAvatar');
+const userInfo = document.getElementById('userInfo');
+const usernameDisplay = document.getElementById('usernameDisplay');
+const logoutBtn = document.getElementById('logoutBtn');
+const userAvatarThumb = document.getElementById('userAvatarThumb');
+const sidebarAvatarThumb = document.getElementById('sidebarAvatarThumb');
+const sidebarAvatarCircle = document.getElementById('sidebarAvatarCircle');
+const sidebarUserLabel = document.getElementById('sidebarUserLabel');
+const sidebarUserId = document.getElementById('sidebarUserId');
+
+// Login
+loginForm.onsubmit = function(e) {
+  e.preventDefault();
+  let username = document.getElementById('username').value.trim();
+  let password = document.getElementById('password').value;
+  let users = getStoredUsers();
+  let user = users.find(u => u.username === username && u.password === password);
+  if(user) {
+    localStorage.setItem("loggedUser", username);
+    loggedUser = username;
+    mostrarSessionUI(user);
+    menuLinks.forEach(l => l.classList.remove('active'));
+    document.querySelector('[data-section="inicio"]').classList.add('active');
+    mostrarSection('inicio');
+  } else {
+    loginError.style.display = "block";
+  }
+};
+
+// Registro
+registerForm.onsubmit = function(e) {
+  e.preventDefault();
+  let nombre = document.getElementById('registerNombre').value.trim();
+  let username = document.getElementById('registerUsername').value.trim();
+  let password = document.getElementById('registerPassword').value;
+  let users = getStoredUsers();
+  if(users.find(u => u.username === username)) {
+    registerError.style.display = "block";
+    registerSuccess.style.display = "none";
+    return;
+  }
+  let avatarData = "";
+  if(registerAvatar && registerAvatar.files && registerAvatar.files[0]) {
+    let reader = new FileReader();
+    reader.onload = function(evt) {
+      avatarData = evt.target.result;
+      users.push({ username, password, nombre, avatar: avatarData });
+      setStoredUsers(users);
+      registerError.style.display = "none";
+      registerSuccess.style.display = "block";
+      setTimeout(() => {
+        registerForm.reset();
+        registerSuccess.style.display = "none";
+      }, 1400);
+    };
+    reader.readAsDataURL(registerAvatar.files[0]);
+    return;
+  }
+  users.push({ username, password, nombre, avatar: "" });
+  setStoredUsers(users);
+  registerError.style.display = "none";
+  registerSuccess.style.display = "block";
+  setTimeout(() => {
+    registerForm.reset();
+    registerSuccess.style.display = "none";
+  }, 1400);
+};
+
+// Mostrar UI tras login
+function mostrarSessionUI(user) {
+  userInfo.style.display = "flex";
+  usernameDisplay.textContent = user.nombre;
+  userAvatarThumb.src = userAvatarOrDefault(user);
+  userAvatarThumb.style.display = "inline-block";
+  sidebarUserLabel.textContent = user.nombre;
+  sidebarUserId.textContent = user.username;
+  sidebarAvatarThumb.src = userAvatarOrDefault(user);
+  sidebarAvatarThumb.style.display = "block";
+  sidebarAvatarCircle.style.display = "none";
+}
+
+// Logout
+logoutBtn.onclick = function() {
+  localStorage.removeItem("loggedUser");
+  loggedUser = null;
+  userInfo.style.display = "none";
+  sidebarUserLabel.textContent = "Cuenta";
+  sidebarUserId.textContent = "Tablero";
+  sidebarAvatarThumb.style.display = "none";
+  sidebarAvatarCircle.style.display = "block";
+  menuLinks.forEach(l => l.classList.remove('active'));
+  document.querySelector('[data-section="login"]').classList.add('active');
+  mostrarSection('login');
+};
+
+// Mantener sesión al recargar
+window.onload = function() {
+  let username = localStorage.getItem("loggedUser");
+  if(username) {
+    loggedUser = username;
+    let users = getStoredUsers();
+    let user = users.find(u => u.username === username);
+    if(user) mostrarSessionUI(user);
+    menuLinks.forEach(l => l.classList.remove('active'));
+    document.querySelector('[data-section="inicio"]').classList.add('active');
+    mostrarSection('inicio');
+  } else {
+    menuLinks.forEach(l => l.classList.remove('active'));
+    document.querySelector('[data-section="login"]').classList.add('active');
+    mostrarSection('login');
+  }
+};
 
 // --- GRUPOS ---
 function gruposKey() {
@@ -38,7 +184,7 @@ function renderGrupos() {
   const grupos = cargarGrupos();
   listaDiv.innerHTML = "";
   if (grupos.length === 0) {
-    listaDiv.innerHTML = "<p style='color:#b05c79'>No has creado grupos.</p>";
+    listaDiv.innerHTML = "<p style='color:#527ba0'>No has creado grupos.</p>";
     return;
   }
   grupos.forEach((g, idx) => {
@@ -46,7 +192,7 @@ function renderGrupos() {
     d.className = "grupo-card";
     d.innerHTML = `<div class="grupo-titulo">${g.nombre}</div>
     <div class="grupo-desc">${g.descripcion}</div>
-    <button class="btn" style="background:#f8bbd0;font-size:0.9em;" onclick="eliminarGrupo(${idx})">Eliminar</button>`;
+    <button class="btn" style="background:#527ba0;font-size:0.9em;" onclick="eliminarGrupo(${idx})">Eliminar</button>`;
     listaDiv.appendChild(d);
   });
 }
@@ -129,7 +275,7 @@ function renderCalendario(monthOffset = 0) {
     .forEach(ev=>{
       let li = document.createElement('li');
       li.innerHTML = `<span class="event-date">${ev.fecha}</span>: <b>${ev.titulo}</b> ${ev.descripcion?("("+ev.descripcion+")"):""}
-      <button style="font-size:0.9em;background:#f8bbd0;border-radius:5px;border:none;margin-left:0.6em;color:#fff;cursor:pointer;" onclick="eliminarEvento('${ev.fecha}','${ev.titulo.replace(/'/g,"")}')">Eliminar</button>`;
+      <button style="font-size:0.9em;background:#527ba0;border-radius:5px;border:none;margin-left:0.6em;color:#fff;cursor:pointer;" onclick="eliminarEvento('${ev.fecha}','${ev.titulo.replace(/'/g,"")}')">Eliminar</button>`;
       eventosList.appendChild(li);
     });
 }
