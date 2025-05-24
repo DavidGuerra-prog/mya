@@ -649,15 +649,20 @@
       calendario: document.getElementById('section-calendario')
     };
     menuLinks.forEach(link => {
-      link.addEventListener('click', function(e) {
-        e.preventDefault();
-        menuLinks.forEach(l => l.classList.remove('active'));
-        this.classList.add('active');
-        Object.keys(sections).forEach(key => sections[key].style.display = 'none');
-        const section = this.getAttribute('data-section');
-        if (sections[section]) sections[section].style.display = '';
-      });
-    });
+  link.addEventListener('click', function(e) {
+    e.preventDefault();
+    menuLinks.forEach(l => l.classList.remove('active'));
+    this.classList.add('active');
+    Object.keys(sections).forEach(key => sections[key].style.display = 'none');
+    const section = this.getAttribute('data-section');
+    if (sections[section]) {
+      sections[section].style.display = '';
+      // Renderizar contenido al entrar a la sección
+      if(section === 'grupos') renderGrupos();
+      if(section === 'calendario') renderCalendario(0);
+    }
+  });
+});
     // --------- GRUPOS ---------
     function gruposKey() {
       const u = localStorage.getItem("loggedUser") || "demo";
