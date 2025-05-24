@@ -44,6 +44,7 @@
       <a href="#">Personas</a>
       <a href="#">Configuración</a>
     </nav>
+    <!-- Botones de login/perfil: pon aquí tu lógica habitual -->
     <button class="login-btn" id="openLoginBtn">Iniciar sesión</button>
     <div class="user-info" id="userInfo" style="display:none;">
       <img src="" alt="Avatar" class="avatar-thumb" id="userAvatarThumb" style="display:none;">
@@ -52,79 +53,7 @@
       <button class="logout-btn" id="logoutBtn" title="Cerrar sesión">Salir</button>
     </div>
   </header>
-  <!-- Modales -->
-  <div class="modal-bg" id="loginModalBg">
-    <div class="modal">
-      <button class="modal-close" id="closeLoginBtn" title="Cerrar">&times;</button>
-      <h2>Iniciar sesión</h2>
-      <form id="loginForm" autocomplete="off">
-        <label for="username">Usuario:</label>
-        <input type="text" id="username" required placeholder="Tu usuario o email">
-        <label for="password">Contraseña:</label>
-        <input type="password" id="password" required placeholder="Contraseña">
-        <div class="modal-actions">
-          <button type="button" id="cancelLoginBtn">Cancelar</button>
-          <button type="submit">Entrar</button>
-        </div>
-      </form>
-      <div id="loginError" class="form-error" style="display:none;">Usuario o contraseña incorrectos</div>
-      <div style="margin-top:0.5rem; text-align:center;">
-        ¿No tienes cuenta? <span class="modal-link" id="goToRegister">Regístrate aquí</span>
-      </div>
-    </div>
-  </div>
-  <div class="modal-bg" id="registerModalBg">
-    <div class="modal">
-      <button class="modal-close" id="closeRegisterBtn" title="Cerrar">&times;</button>
-      <h2>Registrarse</h2>
-      <form id="registerForm" autocomplete="off">
-        <label for="registerNombre">Nombre completo:</label>
-        <input type="text" id="registerNombre" required placeholder="Tu nombre">
-        <label for="registerUsername">Usuario:</label>
-        <input type="text" id="registerUsername" required placeholder="Elige un usuario">
-        <label for="registerPassword">Contraseña:</label>
-        <input type="password" id="registerPassword" required placeholder="Contraseña">
-        <label for="registerAvatar">Foto de perfil (opcional):</label>
-        <input type="file" id="registerAvatar" accept="image/*">
-        <div class="modal-actions">
-          <button type="button" id="cancelRegisterBtn">Cancelar</button>
-          <button type="submit">Registrar</button>
-        </div>
-      </form>
-      <div class="register-success" id="registerSuccess" style="display:none;">¡Registro exitoso! Ya puedes iniciar sesión.</div>
-      <div class="register-error" id="registerError" style="display:none;">Ese usuario ya existe. Elige otro.</div>
-      <div style="margin-top:0.5rem; text-align:center;">
-        ¿Ya tienes cuenta? <span class="modal-link" id="goToLogin">Inicia sesión</span>
-      </div>
-    </div>
-  </div>
-  <div class="profile-modal-bg" id="profileModalBg">
-    <div class="profile-modal">
-      <button class="modal-close" id="closeProfileBtn" title="Cerrar">&times;</button>
-      <h2>Mi Perfil</h2>
-      <form id="profileForm">
-        <div class="profile-avatar">
-          <img src="" id="profileAvatarImg" alt="Avatar de usuario">
-          <div>
-            <label for="profileAvatarInput">Cambiar foto de perfil:</label>
-            <input type="file" id="profileAvatarInput" accept="image/*">
-          </div>
-        </div>
-        <label>Nombre:</label>
-        <input type="text" id="profileNombreInput" required>
-        <label>Usuario:</label>
-        <input type="text" id="profileUsernameInput" required disabled>
-        <label>Nueva contraseña:</label>
-        <input type="password" id="profilePasswordInput" placeholder="Opcional">
-        <div class="modal-actions">
-          <button type="button" id="closeProfileBtn2">Cerrar</button>
-          <button type="submit">Guardar cambios</button>
-        </div>
-      </form>
-      <label>Progreso en ejercicios:</label>
-      <ul id="profileProgreso" class="profile-list"></ul>
-    </div>
-  </div>
+  <!-- Modales: login, registro, perfil... (puedes añadirlos aquí como antes) -->
   <div class="main-canvas-content">
     <div class="canvas-sections">
       <div class="canvas-section" id="section-inicio">
