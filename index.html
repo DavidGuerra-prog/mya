@@ -2,112 +2,86 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Plataforma de estudiantes M&A Spanish Express: accede a grupos, calendario y más.">
   <title>Plataforma Estudiantes - M&A Spanish Express</title>
-  <link rel="icon" href="favicon.ico">
   <link rel="stylesheet" href="style.css" />
+  <script>
+    // Si NO hay sesión, redirige a login.html
+    if (!localStorage.getItem('loggedUser')) window.location.href = 'login.html';
+  </script>
 </head>
 <body>
-  <aside class="sidebar-canvas" role="navigation" aria-label="Menú lateral">
+  <div class="sidebar-canvas">
     <div class="logo">
-      <img src="https://i.imgur.com/2Jg2gCw.png" alt="Logo M&A Spanish Express" width="128" height="128" loading="lazy"/>
+      <img src="https://i.imgur.com/2Jg2gCw.png" alt="M&A Spanish Express" />
     </div>
     <div class="user" id="sidebarUser">
-      <img src="" id="sidebarAvatarThumb" alt="Miniatura avatar" style="display:none;" width="56" height="56" loading="lazy"/>
-      <div class="user-circle" id="sidebarAvatarCircle" title="Avatar por defecto" aria-hidden="true"></div>
+      <img src="" id="sidebarAvatarThumb" style="display:none;" />
+      <div class="user-circle" id="sidebarAvatarCircle"></div>
       <div class="user-label" id="sidebarUserLabel">Cuenta</div>
       <div class="user-id" id="sidebarUserId">Tablero</div>
     </div>
     <nav class="canvas-links" id="mainMenuLinks">
-      <a href="#" data-section="login" class="active"><span class="icon" aria-hidden="true">🔐</span><span style="font-size:0.8em;">Acceso</span></a>
-      <a href="#" data-section="inicio"><span class="icon" aria-hidden="true">🏠</span><span style="font-size:0.8em;">Inicio</span></a>
-      <a href="#" data-section="grupos"><span class="icon" aria-hidden="true">👥</span><span style="font-size:0.8em;">Grupos</span></a>
-      <a href="#" data-section="calendario"><span class="icon" aria-hidden="true">📅</span><span style="font-size:0.8em;">Calendario</span></a>
+      <a href="#" data-section="inicio" class="active"><span class="icon">🏠</span><span>Inicio</span></a>
+      <a href="#" data-section="grupos"><span class="icon">👥</span><span>Grupos</span></a>
+      <a href="#" data-section="calendario"><span class="icon">📅</span><span>Calendario</span></a>
+      <a href="#" data-section="anuncios"><span class="icon">📢</span><span>Anuncios</span></a>
+      <a href="#" data-section="guia"><span class="icon">📖</span><span>Guía</span></a>
+      <a href="#" data-section="modulos"><span class="icon">📚</span><span>Módulos</span></a>
+      <a href="#" data-section="tareas"><span class="icon">📝</span><span>Tareas</span></a>
+      <a href="#" data-section="foros"><span class="icon">💬</span><span>Foros</span></a>
+      <a href="#" data-section="evaluaciones"><span class="icon">🧪</span><span>Evaluaciones</span></a>
+      <a href="#" data-section="calificaciones"><span class="icon">📊</span><span>Calificaciones</span></a>
+      <a href="#" data-section="archivos"><span class="icon">🗂️</span><span>Archivos</span></a>
+      <a href="#" data-section="personas"><span class="icon">👤</span><span>Personas</span></a>
+      <a href="#" data-section="configuracion"><span class="icon">⚙️</span><span>Config.</span></a>
     </nav>
     <div class="canvas-footer"></div>
-  </aside>
-  <header class="canvas-header" role="banner">
-    <h1 tabindex="0">M&A Spanish Express</h1>
-    <nav class="canvas-top-links" aria-label="Menú principal superior">
-      <a href="#">Anuncios</a>
-      <a href="#">Guía Didáctica</a>
-      <a href="#">Módulos</a>
-      <a href="#">Tareas</a>
-      <a href="#">Foros</a>
-      <a href="#">Evaluaciones</a>
-      <a href="#">Calificaciones</a>
-      <a href="#">Archivos</a>
-      <a href="#">Personas</a>
-      <a href="#">Configuración</a>
+  </div>
+  <header class="canvas-header">
+    <h1>M&A Spanish Express</h1>
+    <nav class="canvas-top-links" id="topMenuLinks">
+      <a href="#" data-section="anuncios">Anuncios</a>
+      <a href="#" data-section="guia">Guía Didáctica</a>
+      <a href="#" data-section="modulos">Módulos</a>
+      <a href="#" data-section="tareas">Tareas</a>
+      <a href="#" data-section="foros">Foros</a>
+      <a href="#" data-section="evaluaciones">Evaluaciones</a>
+      <a href="#" data-section="calificaciones">Calificaciones</a>
+      <a href="#" data-section="archivos">Archivos</a>
+      <a href="#" data-section="personas">Personas</a>
+      <a href="#" data-section="configuracion">Configuración</a>
     </nav>
-    <div class="user-info" id="userInfo" style="display:none;">
-      <img src="" alt="Avatar usuario" class="avatar-thumb" id="userAvatarThumb" style="display:none;" width="48" height="48" loading="lazy">
+    <div class="user-info" id="userInfo">
+      <img src="" alt="Avatar" class="avatar-thumb" id="userAvatarThumb" style="display:none;">
       <span id="usernameDisplay"></span>
-      <button class="logout-btn" id="logoutBtn" title="Cerrar sesión" aria-label="Cerrar sesión">Salir</button>
+      <button class="logout-btn" id="logoutBtn" title="Cerrar sesión">Salir</button>
     </div>
   </header>
-  <main class="main-canvas-content" tabindex="0">
-    <section class="canvas-sections">
-      <!-- Login & Registro -->
-      <section class="canvas-section" id="section-login">
-        <h2>Acceso a la plataforma</h2>
-        <div class="login-register-wrapper">
-          <div class="login-box">
-            <h3>Iniciar sesión</h3>
-            <form id="loginForm" autocomplete="off">
-              <label for="username">Usuario:</label>
-              <input type="text" id="username" required placeholder="Tu usuario o email" maxlength="32" autocomplete="username">
-              <label for="password">Contraseña:</label>
-              <input type="password" id="password" required placeholder="Contraseña" maxlength="32" autocomplete="current-password">
-              <button type="submit">Entrar</button>
-              <div id="loginError" class="form-error" style="display:none;">Usuario o contraseña incorrectos</div>
-            </form>
-          </div>
-          <div class="register-box">
-            <h3>Registrarse</h3>
-            <form id="registerForm" autocomplete="off">
-              <label for="registerNombre">Nombre completo:</label>
-              <input type="text" id="registerNombre" required placeholder="Tu nombre" maxlength="40" autocomplete="name">
-              <label for="registerUsername">Usuario:</label>
-              <input type="text" id="registerUsername" required placeholder="Elige un usuario" maxlength="32" autocomplete="username">
-              <label for="registerPassword">Contraseña:</label>
-              <input type="password" id="registerPassword" required placeholder="Contraseña" maxlength="32" autocomplete="new-password">
-              <label for="registerAvatar">Foto de perfil (opcional):</label>
-              <input type="file" id="registerAvatar" accept="image/*">
-              <button type="submit">Registrar</button>
-              <div class="register-success" id="registerSuccess" style="display:none;">¡Registro exitoso! Ya puedes iniciar sesión.</div>
-              <div class="register-error" id="registerError" style="display:none;">Ese usuario ya existe. Elige otro.</div>
-            </form>
-          </div>
-        </div>
-      </section>
-      <!-- Inicio -->
-      <section class="canvas-section" id="section-inicio" style="display:none;">
+  <div class="main-canvas-content">
+    <div class="canvas-sections">
+      <div class="canvas-section" id="section-inicio">
         <h2>Bienvenido a M&A Spanish Express</h2>
-        <p>¡Explora el menú lateral para acceder a Grupos, tu Calendario y mucho más!</p>
-      </section>
-      <!-- Grupos -->
-      <section class="canvas-section" id="section-grupos" style="display:none;">
+        <p>¡Explora todas las secciones desde el menú lateral o superior!</p>
+      </div>
+      <div class="canvas-section" id="section-grupos" style="display:none;">
         <h2>Grupos</h2>
-        <form id="grupoForm" class="grupo-form" autocomplete="off">
-          <input type="text" id="grupoNombre" required placeholder="Nombre del grupo" maxlength="32">
-          <input type="text" id="grupoDesc" required placeholder="Descripción breve" maxlength="60">
+        <form id="grupoForm" class="grupo-form">
+          <input type="text" id="grupoNombre" required placeholder="Nombre del grupo">
+          <input type="text" id="grupoDesc" required placeholder="Descripción breve">
           <button type="submit" class="btn">Crear grupo</button>
         </form>
         <div id="gruposLista"></div>
-      </section>
-      <!-- Calendario -->
-      <section class="canvas-section" id="section-calendario" style="display:none;">
+      </div>
+      <div class="canvas-section" id="section-calendario" style="display:none;">
         <h2>Calendario</h2>
         <div class="calendar-wrapper">
           <div class="calendar-header">
-            <button id="prevMonthBtn" aria-label="Mes anterior">&lt;</button>
+            <button id="prevMonthBtn">&lt;</button>
             <span id="calendarMonth"></span>
-            <button id="nextMonthBtn" aria-label="Mes siguiente">&gt;</button>
+            <button id="nextMonthBtn">&gt;</button>
           </div>
-          <table class="calendar-table" aria-label="Calendario mensual">
+          <table class="calendar-table">
             <thead>
               <tr>
                 <th>Lun</th><th>Mar</th><th>Mié</th><th>Jue</th><th>Vie</th><th>Sáb</th><th>Dom</th>
@@ -115,7 +89,7 @@
             </thead>
             <tbody id="calendarBody"></tbody>
           </table>
-          <form class="calendar-event-form" id="calendarEventForm" autocomplete="off">
+          <form class="calendar-event-form" id="calendarEventForm">
             <input type="date" id="eventDate" required>
             <input type="text" id="eventTitle" required placeholder="Título del evento" maxlength="32">
             <input type="text" id="eventDesc" placeholder="Descripción (opcional)" maxlength="60">
@@ -124,12 +98,52 @@
           <h4 class="cal-events-title">Eventos del mes</h4>
           <ul class="calendar-events-list" id="calendarEventsList"></ul>
         </div>
-      </section>
-    </section>
-  </main>
+      </div>
+      <!-- Secciones reales con ejemplo de contenido -->
+      <div class="canvas-section" id="section-anuncios" style="display:none;">
+        <h2>Anuncios</h2>
+        <p>Aquí verás los anuncios más recientes del curso y de los profesores.</p>
+      </div>
+      <div class="canvas-section" id="section-guia" style="display:none;">
+        <h2>Guía Didáctica</h2>
+        <p>Accede a la guía didáctica, objetivos, metodología y recursos del curso.</p>
+      </div>
+      <div class="canvas-section" id="section-modulos" style="display:none;">
+        <h2>Módulos</h2>
+        <p>Aquí encontrarás todos los módulos del curso, temario y enlaces a materiales.</p>
+      </div>
+      <div class="canvas-section" id="section-tareas" style="display:none;">
+        <h2>Tareas</h2>
+        <p>Consulta y entrega tus tareas pendientes.</p>
+      </div>
+      <div class="canvas-section" id="section-foros" style="display:none;">
+        <h2>Foros</h2>
+        <p>Participa en los foros de discusión y resuelve tus dudas con otros alumnos.</p>
+      </div>
+      <div class="canvas-section" id="section-evaluaciones" style="display:none;">
+        <h2>Evaluaciones</h2>
+        <p>Realiza tus evaluaciones y consulta tus resultados.</p>
+      </div>
+      <div class="canvas-section" id="section-calificaciones" style="display:none;">
+        <h2>Calificaciones</h2>
+        <p>Aquí puedes ver tus calificaciones y progreso en el curso.</p>
+      </div>
+      <div class="canvas-section" id="section-archivos" style="display:none;">
+        <h2>Archivos</h2>
+        <p>Descarga materiales y recursos del curso.</p>
+      </div>
+      <div class="canvas-section" id="section-personas" style="display:none;">
+        <h2>Personas</h2>
+        <p>Consulta la lista de compañeros y profesores.</p>
+      </div>
+      <div class="canvas-section" id="section-configuracion" style="display:none;">
+        <h2>Configuración</h2>
+        <p>Modifica tus datos personales, preferencias y privacidad.</p>
+      </div>
+    </div>
+  </div>
   <footer>
-    &copy; 2025 M&A Spanish Express ·
-    <a href="mailto:info@maspanishexpress.com" tabindex="0">info@maspanishexpress.com</a>
+    &copy; 2025 M&A Spanish Express · info@maspanishexpress.com
   </footer>
   <script src="app.js"></script>
 </body>
